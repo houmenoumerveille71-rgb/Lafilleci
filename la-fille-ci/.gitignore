@@ -1,0 +1,9 @@
+# Dépendances
+node_modules/
+
+# Build de Next.js
+.next/
+
+# Fichiers d'environnement locaux (secrets)
+.env
+.env.local

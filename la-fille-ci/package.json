@@ -1,0 +1,40 @@
+{
+  "name": "la-fille-ci",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "prisma:generate": "node node_modules/prisma/build/index.js generate",
+    "prisma:migrate": "node node_modules/prisma/build/index.js migrate deploy",
+    "seed:admin": "node scripts/create-admin.js"
+  },
+  "dependencies": {
+    "@auth/prisma-adapter": "^2.11.3",
+    "@stripe/react-stripe-js": "^6.8.0",
+    "@stripe/stripe-js": "^9.12.1",
+    "@types/bcryptjs": "^2.4.6",
+    "bcryptjs": "^3.0.3",
+    "formidable": "^3.5.4",
+    "next": "16.2.12",
+    "next-auth": "^4.24.15",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "stripe": "^22.3.2",
+    "uuid": "^14.0.1"
+  },
+  "devDependencies": {
+    "@prisma/client": "^6.19.3",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.12",
+    "prisma": "^6.19.3",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

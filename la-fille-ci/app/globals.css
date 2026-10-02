@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+body {
+  background-color: #faf7f5;
+  color: #1a1a1a;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+@keyframes flyToCart {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 1;
+  }
+  30% {
+    transform: translateY(-40px) translateX(-20px) scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-200px) translateX(-80px) scale(0.3);
+    opacity: 0;
+  }
+}
