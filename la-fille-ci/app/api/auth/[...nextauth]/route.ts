@@ -1,29 +1,13 @@
-import NextAuth from 'next-auth';
+import NextAuth, { type NextAuthOptions } from 'next-auth';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import Credentials from 'next-auth/providers/credentials';
 import prisma from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
-import { SessionStrategy } from 'next-auth';
 
-interface JWTData {
-  id?: number;
-  email?: string;
-  firstName?: string | null;
-  lastName?: string | null;
-  isAdmin?: boolean;
-}
-
-interface SessionData {
-  user?: {
-    id?: number;
-    email?: string;
-    firstName?: string | null;
-    lastName?: string | null;
-    isAdmin?: boolean;
-  };
-}
-
-export const authOptions = {
+// Le typage explicite `NextAuthOptions` est indispensable : il permet a
+// `getServerSession(authOptions)` d'inferer le type `Session` augmentation
+// (voir types/next-auth.d.ts). Sans lui, `session.user` est type `{}`.
+export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     Credentials({
@@ -62,15 +46,18 @@ export const authOptions = {
     })
   ],
   session: {
-    strategy: 'jwt' as SessionStrategy
+    strategy: 'jwt',
   },
   pages: {
+    // Seuls `signIn`, `error` et `verifyRequest` sont supportes par next-auth v4.
+    // La page d'inscription /register est geree independamment par l'application.
     signIn: '/login',
-    signUp: '/register'
   },
   callbacks: {
-    async jwt({ token, user }: { token: JWTData; user: { id?: string; email?: string; firstName?: string | null; lastName?: string | null; isAdmin?: boolean } | null }) {
+    async jwt({ token, user }) {
       if (user) {
+        // `authorize` renvoie un id de type string, on le convertit en nombre
+        // car `token.id` est type `number` (voir types/next-auth.d.ts).
         token.id = Number(user.id);
         token.email = user.email;
         token.firstName = user.firstName;
@@ -79,7 +66,7 @@ export const authOptions = {
       }
       return token;
     },
-    async session({ session, token }: { session: SessionData; token: JWTData }) {
+    async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id;
         session.user.email = token.email;
@@ -88,9 +75,9 @@ export const authOptions = {
         session.user.isAdmin = token.isAdmin;
       }
       return session;
-    }
-  }
+    },
+  },
 };
 
-const handler = NextAuth(authOptions as any);
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

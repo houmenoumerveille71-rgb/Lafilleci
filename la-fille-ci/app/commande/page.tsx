@@ -130,10 +130,11 @@ export default function CheckoutPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          // On n'envoie QUE l'identifiant et la quantite : le prix et le nom
+          // sont relus en base par le serveur, qui est seul a faire foi.
+          // Envoyer un prix ici serait futile et potentiellement trompeur.
           items: items.map((item) => ({
             productId: item.id,
-            name: item.name,
-            price: parseFloat(item.price.replace(' FCFA', '').replace(',', '')),
             quantity: item.quantity,
           })),
           ...formData,

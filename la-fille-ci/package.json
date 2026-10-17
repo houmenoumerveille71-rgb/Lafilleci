@@ -9,7 +9,11 @@
     "lint": "eslint",
     "prisma:generate": "node node_modules/prisma/build/index.js generate",
     "prisma:migrate": "node node_modules/prisma/build/index.js migrate deploy",
-    "seed:admin": "node scripts/create-admin.js"
+    "seed:admin": "node scripts/create-admin.js",
+    "db:test": "node scripts/test-db.js",
+    "test:api": "node scripts/test-api.js",
+    "test": "node scripts/test-db.js && node scripts/test-api.js",
+    "stripe:check": "node scripts/check-stripe.js"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.3",

@@ -1,7 +1,12 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
+import { requireAdmin } from '@/lib/require-admin';
 
 export async function GET() {
+  // Garde-fou : seules les sessions d'administrateur sont acceptees.
+  const guard = await requireAdmin();
+  if (guard) return guard;
+
   try {
     const products = await prisma.product.findMany({
       orderBy: { createdAt: 'desc' },
@@ -14,6 +19,10 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  // Garde-fou : la creation de produit est reservee aux administrateurs.
+  const guard = await requireAdmin();
+  if (guard) return guard;
+
   try {
     const body = await request.json();
     const product = await prisma.product.create({

@@ -10,7 +10,7 @@ export default function AdminAuthCheck({ children }: { children: React.ReactNode
 
   useEffect(() => {
     if (status === 'unauthenticated') {
-      router.push('/admin/login');
+      router.push('/connexion-admin');
     }
   }, [status, router]);
 

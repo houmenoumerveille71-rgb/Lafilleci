@@ -10,7 +10,7 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = (await getServerSession(authOptions)) as {
+  const session = (await getServerSession(authOptions as any)) as {
     user?: { id?: string | number };
   } | null;
 
