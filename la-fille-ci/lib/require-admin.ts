@@ -25,7 +25,9 @@ export async function requireAdmin() {
   } | null;
 
   // 401 : aucune session valide (visiteur non connecte)
-  if (!session?.user?.id) {
+  const numericUserId = Number(session?.user?.id);
+
+  if (!session?.user?.id || !Number.isSafeInteger(numericUserId) || numericUserId <= 0) {
     return NextResponse.json(
       { error: 'Authentification requise' },
       { status: 401 },
@@ -33,7 +35,7 @@ export async function requireAdmin() {
   }
 
   const user = await prisma.user.findUnique({
-    where: { id: session.user.id },
+    where: { id: numericUserId },
     select: { isAdmin: true },
   });
 

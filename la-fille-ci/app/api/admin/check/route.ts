@@ -9,12 +9,14 @@ export async function GET() {
       user?: { id?: string | number };
     } | null;
 
-    if (!session?.user?.id) {
+    const numericUserId = Number(session?.user?.id);
+
+    if (!session?.user?.id || !Number.isSafeInteger(numericUserId) || numericUserId <= 0) {
       return NextResponse.json({ isAdmin: false }, { status: 401 });
     }
 
     const user = await prisma.user.findUnique({
-      where: { id: session.user.id },
+      where: { id: numericUserId },
       select: { isAdmin: true },
     });
 
