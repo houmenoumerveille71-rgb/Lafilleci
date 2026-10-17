@@ -5,7 +5,9 @@ import prisma from '@/lib/prisma';
 
 export async function GET() {
   try {
-    const session = await getServerSession(authOptions as any);
+    const session = (await getServerSession(authOptions as any)) as {
+      user?: { id?: string | number };
+    } | null;
 
     if (!session?.user?.id) {
       return NextResponse.json({ isAdmin: false }, { status: 401 });

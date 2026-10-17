@@ -20,7 +20,9 @@ import prisma from '@/lib/prisma';
  * present dans le JWT, afin qu'une revocation de droit soit immediate.
  */
 export async function requireAdmin() {
-  const session = await getServerSession(authOptions as any);
+  const session = (await getServerSession(authOptions as any)) as {
+    user?: { id?: string | number };
+  } | null;
 
   // 401 : aucune session valide (visiteur non connecte)
   if (!session?.user?.id) {

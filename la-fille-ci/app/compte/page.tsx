@@ -5,7 +5,9 @@ import Footer from '@/components/Footer';
 import Link from 'next/link';
 
 export default async function ComptePage() {
-  const session = await getServerSession(authOptions as any);
+  const session = (await getServerSession(authOptions as any)) as {
+    user?: { id?: string | number };
+  } | null;
 
   if (!session) {
     return (
