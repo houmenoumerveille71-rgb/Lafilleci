@@ -36,7 +36,7 @@ export default function Header() {
           </div>
 
           {/* Icônes d'Action + Menu Mobile */}
-          <div className="flex items-center gap-2 text-amber-100/80">
+          <div className="flex items-center gap-1.5 sm:gap-2 text-amber-100/80">
             {/* Bouton hamburger mobile */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
