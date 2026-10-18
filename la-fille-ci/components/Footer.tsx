@@ -54,13 +54,13 @@ export default function Footer() {
         <span className="text-[10px] uppercase tracking-[0.2em] text-amber-400/80 block mb-3">
           Inscription Newsletter
         </span>
-        <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row gap-2">
           <input
             type="email"
             placeholder="Votre email..."
             className="bg-black border border-amber-900/40 text-xs px-4 py-2 flex-1 text-stone-200 focus:outline-none focus:border-amber-500"
           />
-          <button className="bg-amber-900/60 border border-amber-700/50 text-amber-100 text-[10px] uppercase tracking-widest px-4 py-2 hover:bg-amber-800 transition">
+          <button className="bg-amber-900/60 border border-amber-700/50 text-amber-100 text-[10px] uppercase tracking-widest px-4 py-2 hover:bg-amber-800 transition whitespace-nowrap">
             S&rsquo;ABONNER
           </button>
         </div>

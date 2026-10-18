@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import { useWishlist } from '@/context/WishlistContext';
 import { useSession, signOut } from 'next-auth/react';
@@ -9,6 +10,7 @@ export default function Header() {
   const { totalItems } = useCart();
   const { totalItems: wishlistCount } = useWishlist();
   const { data: session, status } = useSession();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <>
@@ -20,7 +22,7 @@ export default function Header() {
       {/* En-tête Principal */}
       <header className="sticky top-0 z-50 bg-black/95 backdrop-blur-md border-b border-amber-900/30">
         <div className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
-          
+
           {/* Logo */}
           <div className="flex-1 text-center md:text-left">
             <Link href="/" className="inline-block">
@@ -33,8 +35,23 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Icônes d'Action */}
-          <div className="flex items-center space-x-5 text-amber-100/80">
+          {/* Icônes d'Action + Menu Mobile */}
+          <div className="flex items-center gap-3 text-amber-100/80">
+            {/* Bouton hamburger mobile */}
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="md:hidden hover:text-amber-400 transition"
+              aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                {menuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+
             <button className="hover:text-amber-400 transition" aria-label="Recherche">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.2} stroke="currentColor" className="w-5 h-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
@@ -82,8 +99,8 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Barre de Navigation */}
-        <nav className="flex justify-center space-x-8 py-3 border-t border-amber-900/10 text-[11px] tracking-[0.2em] uppercase text-stone-300">
+        {/* Barre de Navigation - Desktop */}
+        <nav className="hidden md:flex justify-center space-x-8 py-3 border-t border-amber-900/10 text-[11px] tracking-[0.2em] uppercase text-stone-300">
           <Link href="/" className="hover:text-amber-300 transition">Nouveautés</Link>
           <Link href="/sortie" className="hover:text-amber-300 transition">Sortie</Link>
           <Link href="/sport" className="hover:text-amber-300 transition">Sport</Link>
@@ -91,6 +108,19 @@ export default function Header() {
           <Link href="/journal" className="hover:text-amber-300 transition">Journal</Link>
           <Link href="/a-propos" className="hover:text-amber-300 transition">À Propos</Link>
           <Link href="/vente" className="hover:text-amber-300 transition">Vente</Link>
+        </nav>
+
+        {/* Barre de Navigation - Mobile */}
+        <nav className={`md:hidden py-4 border-t border-amber-900/10 ${menuOpen ? 'block' : 'hidden'}`}>
+          <div className="flex flex-col space-y-2 text-center">
+            <Link href="/" className="block py-2 hover:text-amber-300 transition text-[11px] uppercase tracking-[0.2em]">Nouveautés</Link>
+            <Link href="/sortie" className="block py-2 hover:text-amber-300 transition text-[11px] uppercase tracking-[0.2em]">Sortie</Link>
+            <Link href="/sport" className="block py-2 hover:text-amber-300 transition text-[11px] uppercase tracking-[0.2em]">Sport</Link>
+            <Link href="/crochet" className="block py-2 hover:text-amber-300 transition text-[11px] uppercase tracking-[0.2em]">Crochet</Link>
+            <Link href="/journal" className="block py-2 hover:text-amber-300 transition text-[11px] uppercase tracking-[0.2em]">Journal</Link>
+            <Link href="/a-propos" className="block py-2 hover:text-amber-300 transition text-[11px] uppercase tracking-[0.2em]">À Propos</Link>
+            <Link href="/vente" className="block py-2 hover:text-amber-300 transition text-[11px] uppercase tracking-[0.2em]">Vente</Link>
+          </div>
         </nav>
       </header>
     </>
