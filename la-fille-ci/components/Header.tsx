@@ -26,24 +26,24 @@ export default function Header() {
           {/* Logo */}
           <div className="flex-1 text-center md:text-left">
             <Link href="/" className="inline-block">
-              <h1 className="text-3xl md:text-4xl font-serif tracking-wider text-amber-100 font-normal">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif tracking-wider text-amber-100 font-normal">
                 Lafille–ci
               </h1>
-              <p className="text-[9px] uppercase tracking-[0.3em] text-amber-400/60 -mt-1">
+              <p className="text-[8px] sm:text-[9px] uppercase tracking-[0.3em] text-amber-400/60 -mt-1">
                 ATELIER DE LUXE PREMIUM
               </p>
             </Link>
           </div>
 
           {/* Icônes d'Action + Menu Mobile */}
-          <div className="flex items-center gap-3 text-amber-100/80">
+          <div className="flex items-center gap-2 sm:gap-3 text-amber-100/80">
             {/* Bouton hamburger mobile */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="md:hidden hover:text-amber-400 transition"
               aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6">
                 {menuOpen ? (
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 ) : (
@@ -53,7 +53,7 @@ export default function Header() {
             </button>
 
             <button className="hover:text-amber-400 transition" aria-label="Recherche">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.2} stroke="currentColor" className="w-5 h-5">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.2} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
               </svg>
             </button>
@@ -63,25 +63,25 @@ export default function Header() {
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.2} stroke="currentColor" className="w-5 h-5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                   </svg>
-                  <span className="text-xs font-mono">{session.user.firstName?.[0]?.toUpperCase()}{session.user.lastName?.[0]?.toUpperCase()}</span>
-                </Link>
-                <button onClick={() => signOut()} className="hover:text-amber-400 transition flex items-center gap-1" aria-label="Déconnexion">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.2} stroke="currentColor" className="w-5 h-5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
-                  </svg>
-                  <span className="text-xs font-mono">Déconnexion</span>
-                </button>
+                <span className="hidden sm:inline text-xs font-mono">{session.user.firstName?.[0]?.toUpperCase()}{session.user.lastName?.[0]?.toUpperCase()}</span>
+              </Link>
+              <button onClick={() => signOut()} className="hover:text-amber-400 transition flex items-center gap-1" aria-label="Déconnexion">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.2} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+                </svg>
+                <span className="hidden sm:inline text-xs font-mono">Déconnexion</span>
+              </button>
               </>
             ) : (
               <Link href="/login" className="hover:text-amber-400 transition flex items-center gap-1" aria-label="Compte">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.2} stroke="currentColor" className="w-5 h-5">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.2} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                 </svg>
-                <span className="text-xs font-mono">Connexion</span>
+                <span className="hidden sm:inline text-xs font-mono">Connexion</span>
               </Link>
             )}
             <button className="hover:text-amber-400 transition relative" aria-label="Favoris">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.2} stroke="currentColor" className="w-5 h-5">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.2} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.575-4.688-4.575-1.39 0-2.64.675-3.312 1.722-.672-1.047-1.922-1.722-3.312-1.722C7.099 3.675 5 5.765 5 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
               </svg>
               {wishlistCount > 0 && (
@@ -91,7 +91,7 @@ export default function Header() {
               )}
             </button>
             <Link href="/panier" className="hover:text-amber-400 transition flex items-center gap-1 relative" aria-label="Panier">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.2} stroke="currentColor" className="w-5 h-5">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.2} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375 0 1 1-.75 0 .375 0 0 1 .75 0Zm7.5 0a.375 0 1 1-.75 0 .375 0 0 1 .75 0Z" />
               </svg>
               <span className="text-xs font-mono">{totalItems}</span>

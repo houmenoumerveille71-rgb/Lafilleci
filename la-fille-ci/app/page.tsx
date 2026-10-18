@@ -95,10 +95,10 @@ export default function Home() {
 
       {/* Category Filter */}
       <section className="py-8 px-6 max-w-7xl mx-auto">
-        <div className="flex flex-wrap justify-center gap-4">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
           <button
             onClick={() => setActiveCategory('all')}
-            className={`px-6 py-2 text-xs uppercase tracking-widest transition ${
+            className={`px-3 sm:px-6 py-1.5 sm:py-2 text-[10px] sm:text-xs uppercase tracking-widest transition ${
               activeCategory === 'all'
                 ? 'bg-amber-800 text-amber-100 border border-amber-600'
                 : 'bg-transparent text-stone-400 border border-stone-700 hover:border-amber-500 hover:text-amber-300'
@@ -110,7 +110,7 @@ export default function Home() {
             <button
               key={cat.slug}
               onClick={() => setActiveCategory(cat.slug)}
-              className={`px-6 py-2 text-xs uppercase tracking-widest transition ${
+              className={`px-3 sm:px-6 py-1.5 sm:py-2 text-[10px] sm:text-xs uppercase tracking-widest transition ${
                 activeCategory === cat.slug
                   ? 'bg-amber-800 text-amber-100 border border-amber-600'
                   : 'bg-transparent text-stone-400 border border-stone-700 hover:border-amber-500 hover:text-amber-300'
@@ -126,7 +126,7 @@ export default function Home() {
       <section className="grid grid-cols-1 md:grid-cols-3 gap-1 p-2 bg-stone-900/40">
         {banners.length > 0 ? (
           banners.map((banner) => (
-            <div key={banner.id} className="relative h-[480px] md:h-[580px] border border-amber-900/20 flex flex-col items-center justify-center text-center p-8 overflow-hidden group">
+            <div key={banner.id} className="relative h-[380px] sm:h-[480px] md:h-[580px] border border-amber-900/20 flex flex-col items-center justify-center text-center p-8 overflow-hidden group">
               {banner.image ? (
                 <img 
                   src={banner.image} 
@@ -146,17 +146,15 @@ export default function Home() {
             </div>
           ))
         ) : (
-          <>
-            <div className="relative h-[480px] md:h-[580px] bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
-              [ Aucune bannière ]
-            </div>
-            <div className="relative h-[480px] md:h-[580px] bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
-              [ Aucune bannière ]
-            </div>
-            <div className="relative h-[480px] md:h-[580px] bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
-              [ Aucune bannière ]
-            </div>
-          </>
+              <div className="relative h-[380px] sm:h-[480px] md:h-[580px] bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
+                [ Aucune bannière ]
+              </div>
+              <div className="relative h-[380px] sm:h-[480px] md:h-[580px] bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
+                [ Aucune bannière ]
+              </div>
+              <div className="relative h-[380px] sm:h-[480px] md:h-[580px] bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
+                [ Aucune bannière ]
+              </div>
         )}
       </section> 
 
@@ -184,7 +182,7 @@ export default function Home() {
         </div>
 
         {/* Grille Cartes Produits */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
           {filteredProducts.map((item) => (
             <ProductCard 
               key={item.id} 

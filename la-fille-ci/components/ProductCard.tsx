@@ -87,16 +87,16 @@ export default function ProductCard({ name, price, image, stock = 0, description
       <div className="grid grid-cols-2 gap-2 mt-auto">
         <button 
           onClick={() => setIsModalOpen(true)}
-          className="border border-amber-900/40 text-[10px] uppercase tracking-wider py-2 text-stone-300 hover:border-amber-500 hover:text-white transition"
+          className="border border-amber-900/40 text-[9px] sm:text-[10px] uppercase tracking-wider py-1.5 sm:py-2 text-stone-300 hover:border-amber-500 hover:text-white transition"
         >
           Aperçu Rapide
         </button>
         <button 
           onClick={handleAddToCart}
           disabled={isOutOfStock}
-          className={`${isOutOfStock ? 'bg-stone-800 text-stone-500 cursor-not-allowed' : 'bg-stone-900 border border-amber-900/40 text-amber-200 hover:bg-amber-900/40'} text-[10px] uppercase tracking-wider py-2 transition`}
+          className={`${isOutOfStock ? 'bg-stone-800 text-stone-500 cursor-not-allowed' : 'bg-stone-900 border border-amber-900/40 text-amber-200 hover:bg-amber-900/40'} text-[9px] sm:text-[10px] uppercase tracking-wider py-1.5 sm:py-2 transition`}
         >
-          {isOutOfStock ? 'Indisponible' : 'Ajouter au Panier'}
+          {isOutOfStock ? 'Indisponible' : 'Ajouter'}
         </button>
       </div>
 
