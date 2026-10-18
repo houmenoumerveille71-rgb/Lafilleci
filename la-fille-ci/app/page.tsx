@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
@@ -146,15 +146,17 @@ export default function Home() {
             </div>
           ))
         ) : (
-              <div className="relative h-[380px] sm:h-[480px] md:h-[580px] bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
-                [ Aucune bannière ]
-              </div>
-              <div className="relative h-[380px] sm:h-[480px] md:h-[580px] bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
-                [ Aucune bannière ]
-              </div>
-              <div className="relative h-[380px] sm:h-[480px] md:h-[580px] bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
-                [ Aucune bannière ]
-              </div>
+          <>
+            <div className="relative h-[380px] sm:h-[480px] md:h-[580px] bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
+              [ Aucune bannière ]
+            </div>
+            <div className="relative h-[380px] sm:h-[480px] md:h-[580px] bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
+              [ Aucune bannière ]
+            </div>
+            <div className="relative h-[380px] sm:h-[480px] md:h-[580px] bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
+              [ Aucune bannière ]
+            </div>
+          </>
         )}
       </section> 
 
