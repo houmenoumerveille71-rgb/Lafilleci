@@ -36,7 +36,7 @@ export default function Header() {
           </div>
 
           {/* Icônes d'Action + Menu Mobile */}
-          <div className="flex items-center gap-1.5 sm:gap-2 text-amber-100/80">
+          <div className="flex items-center gap-1.5 text-amber-100/80">
             {/* Bouton hamburger mobile */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
@@ -58,13 +58,13 @@ export default function Header() {
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.2} stroke="currentColor" className="w-4 h-4">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                   </svg>
-                  <span className="hidden sm:inline text-xs font-mono">{session?.user?.firstName?.[0]?.toUpperCase()}{session?.user?.lastName?.[0]?.toUpperCase()}</span>
+                  <span className="hidden md:inline text-xs font-mono">{session?.user?.firstName?.[0]?.toUpperCase()}{session?.user?.lastName?.[0]?.toUpperCase()}</span>
                 </Link>
                 <button onClick={() => signOut()} className="hover:text-amber-400 transition flex items-center gap-1" aria-label="Déconnexion">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.2} stroke="currentColor" className="w-4 h-4">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
                   </svg>
-                  <span className="hidden sm:inline text-xs font-mono">Déconnexion</span>
+                  <span className="hidden md:inline text-xs font-mono">Déconnexion</span>
                 </button>
                 <Link href="/panier" className="hover:text-amber-400 transition flex items-center gap-1 relative" aria-label="Panier">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.2} stroke="currentColor" className="w-4 h-4">
