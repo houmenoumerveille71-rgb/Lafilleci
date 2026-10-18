@@ -20,16 +20,16 @@ export default function Header() {
       </div>
 
       {/* En-tête Principal */}
-      <header className="sticky top-0 z-50 bg-black/95 backdrop-blur-md border-b border-amber-900/30">
-        <div className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
+      <header className="sticky top-0 z-50 bg-black/95 backdrop-blur-sm border-b border-amber-900/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
 
           {/* Logo */}
           <div className="flex-1 text-center md:text-left">
             <Link href="/" className="inline-block">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif tracking-wider text-amber-100 font-normal">
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-serif tracking-wider text-amber-100 font-normal">
                 Lafille–ci
               </h1>
-              <p className="text-[8px] sm:text-[9px] uppercase tracking-[0.3em] text-amber-400/60 -mt-1">
+              <p className="text-[7px] sm:text-[8px] uppercase tracking-[0.2em] text-amber-400/60 -mt-0.5">
                 ATELIER DE LUXE PREMIUM
               </p>
             </Link>
@@ -111,8 +111,8 @@ export default function Header() {
         </nav>
 
         {/* Barre de Navigation - Mobile */}
-        <nav className={`md:hidden border-t border-amber-900/10 absolute w-full bg-black/98 backdrop-blur-md transition-all duration-300 ${menuOpen ? 'block opacity-100 visible py-6' : 'hidden opacity-0 invisible py-0'}`}>
-          <div className="flex flex-col space-y-4 text-center px-6">
+        <nav className={`md:hidden border-t border-amber-900/10 absolute w-full bg-black/98 backdrop-blur-sm transition-all duration-300 ${menuOpen ? 'block opacity-100 visible py-4' : 'hidden opacity-0 invisible py-0'}`}>
+          <div className="flex flex-col space-y-3 text-center px-6">
             <Link href="/" onClick={() => setMenuOpen(false)} className="block py-2 hover:text-amber-300 transition text-xs uppercase tracking-[0.2em]">Nouveautés</Link>
             <Link href="/sortie" onClick={() => setMenuOpen(false)} className="block py-2 hover:text-amber-300 transition text-xs uppercase tracking-[0.2em]">Sortie</Link>
             <Link href="/sport" onClick={() => setMenuOpen(false)} className="block py-2 hover:text-amber-300 transition text-xs uppercase tracking-[0.2em]">Sport</Link>
