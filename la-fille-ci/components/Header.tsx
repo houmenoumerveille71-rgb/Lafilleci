@@ -111,15 +111,15 @@ export default function Header() {
         </nav>
 
         {/* Barre de Navigation - Mobile */}
-        <nav className={`md:hidden py-4 border-t border-amber-900/10 ${menuOpen ? 'block' : 'hidden'}`}>
-          <div className="flex flex-col space-y-2 text-center">
-            <Link href="/" className="block py-2 hover:text-amber-300 transition text-[11px] uppercase tracking-[0.2em]">Nouveautés</Link>
-            <Link href="/sortie" className="block py-2 hover:text-amber-300 transition text-[11px] uppercase tracking-[0.2em]">Sortie</Link>
-            <Link href="/sport" className="block py-2 hover:text-amber-300 transition text-[11px] uppercase tracking-[0.2em]">Sport</Link>
-            <Link href="/crochet" className="block py-2 hover:text-amber-300 transition text-[11px] uppercase tracking-[0.2em]">Crochet</Link>
-            <Link href="/journal" className="block py-2 hover:text-amber-300 transition text-[11px] uppercase tracking-[0.2em]">Journal</Link>
-            <Link href="/a-propos" className="block py-2 hover:text-amber-300 transition text-[11px] uppercase tracking-[0.2em]">À Propos</Link>
-            <Link href="/vente" className="block py-2 hover:text-amber-300 transition text-[11px] uppercase tracking-[0.2em]">Vente</Link>
+        <nav className={`md:hidden border-t border-amber-900/10 absolute w-full bg-black/98 backdrop-blur-md transition-all duration-300 ${menuOpen ? 'block opacity-100 visible py-6' : 'hidden opacity-0 invisible py-0'}`}>
+          <div className="flex flex-col space-y-4 text-center px-6">
+            <Link href="/" onClick={() => setMenuOpen(false)} className="block py-2 hover:text-amber-300 transition text-xs uppercase tracking-[0.2em]">Nouveautés</Link>
+            <Link href="/sortie" onClick={() => setMenuOpen(false)} className="block py-2 hover:text-amber-300 transition text-xs uppercase tracking-[0.2em]">Sortie</Link>
+            <Link href="/sport" onClick={() => setMenuOpen(false)} className="block py-2 hover:text-amber-300 transition text-xs uppercase tracking-[0.2em]">Sport</Link>
+            <Link href="/crochet" onClick={() => setMenuOpen(false)} className="block py-2 hover:text-amber-300 transition text-xs uppercase tracking-[0.2em]">Crochet</Link>
+            <Link href="/journal" onClick={() => setMenuOpen(false)} className="block py-2 hover:text-amber-300 transition text-xs uppercase tracking-[0.2em]">Journal</Link>
+            <Link href="/a-propos" onClick={() => setMenuOpen(false)} className="block py-2 hover:text-amber-300 transition text-xs uppercase tracking-[0.2em]">À Propos</Link>
+            <Link href="/vente" onClick={() => setMenuOpen(false)} className="block py-2 hover:text-amber-300 transition text-xs uppercase tracking-[0.2em]">Vente</Link>
           </div>
         </nav>
       </header>
