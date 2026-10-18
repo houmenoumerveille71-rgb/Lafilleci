@@ -24,12 +24,12 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
 
           {/* Logo */}
-          <div className="flex-1 text-center md:text-left">
+          <div className="flex-1 text-left md:text-left">
             <Link href="/" className="inline-block">
-              <h1 className="text-xl sm:text-2xl md:text-3xl font-serif tracking-wider text-amber-100 font-normal">
+              <h1 className="text-lg sm:text-xl md:text-3xl font-serif tracking-wider text-amber-100 font-normal">
                 Lafille–ci
               </h1>
-              <p className="text-[7px] sm:text-[8px] uppercase tracking-[0.2em] text-amber-400/60 -mt-0.5">
+              <p className="text-[6px] sm:text-[8px] uppercase tracking-[0.2em] text-amber-400/60 -mt-0.5">
                 ATELIER DE LUXE PREMIUM
               </p>
             </Link>
