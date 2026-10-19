@@ -74,7 +74,7 @@ export default function Header() {
           <div className="shrink-0 min-w-0 py-3">
             <Link href="/" className="inline-flex items-baseline gap-2 group">
               <span className="text-base sm:text-lg md:text-xl font-serif tracking-[0.2em] uppercase text-stone-100 group-hover:text-amber-300 transition duration-300">
-                La FiLLE-CI
+                La Fille-Ci
               </span>
               <span className="text-[10px] sm:text-xs tracking-[0.3em] lowercase text-amber-500/90 font-light italic">
                 by cino
@@ -95,15 +95,8 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Icones d'action (Recherche supprimee) */}
+          {/* Icones d'action */}
           <div className="flex items-center gap-0.5 sm:gap-1 shrink-0">
-
-            {/* Wishlist */}
-            <Link href="/wishlist" className={iconButton} aria-label="Liste d'envies">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.575-4.688-4.575-1.39 0-2.64.675-3.312 1.722-.672-1.047-1.922-1.722-3.312-1.722C7.099 3.675 5 5.765 5 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-              </svg>
-            </Link>
 
             {/* Panier */}
             <Link href="/panier" className={`${iconButton} relative`} aria-label="Panier">
@@ -175,7 +168,7 @@ export default function Header() {
 
       {/* Tiroir de navigation mobile */}
       {menuOpen && (
-        <div className="xl:hidden fixed inset-0 z-[60] flex justify-end">
+        <div className="xl:hidden fixed inset-0 z-50 flex justify-end">
           <div
             className="absolute inset-0 bg-black/70 backdrop-blur-sm"
             onClick={() => setMenuOpen(false)}
@@ -213,14 +206,6 @@ export default function Header() {
                   {link.label}
                 </Link>
               ))}
-
-              <Link
-                href="/wishlist"
-                onClick={() => setMenuOpen(false)}
-                className="block px-3 py-3 text-xs uppercase tracking-[0.2em] text-stone-300 hover:text-amber-300 transition border-b border-amber-900/10"
-              >
-                Liste d&apos;Envies
-              </Link>
             </nav>
 
             <div className="px-3 pb-8 pt-2">
