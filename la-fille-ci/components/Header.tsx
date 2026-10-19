@@ -74,12 +74,7 @@ export default function Header() {
           {/* Logo */}
           <div className="flex-shrink-0 min-w-0 py-3 sm:py-4">
             <Link href="/" className="inline-block">
-              <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-serif tracking-wider text-amber-100 font-normal">
-                Lafille–ci
-              </h1>
-              <p className="text-[6px] sm:text-[8px] uppercase tracking-[0.2em] text-amber-400/60 -mt-0.5">
-                ATELIER DE LUXE PREMIUM
-              </p>
+              <img src="/uploads/8fcd247c-bfa2-4eed-9773-43c4d0f2eff3.jpg" alt="La fille-ci" className="h-8 sm:h-10 md:h-12 lg:h-14 object-contain" />
             </Link>
           </div>
 
