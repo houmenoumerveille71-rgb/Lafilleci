@@ -83,8 +83,8 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Navigation principale - visible a partir de 1024px (sinon debordement) */}
-          <nav className="hidden lg:flex flex-1 justify-center gap-x-5 xl:gap-x-8 py-2">
+          {/* Navigation principale - visible a partir de 1280px (en dessous le menu deborde) */}
+          <nav className="hidden xl:flex flex-1 justify-center gap-x-6 2xl:gap-x-8 py-2">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href + link.label}
@@ -173,7 +173,7 @@ export default function Header() {
             {/* Menu hamburger - mobile et tablette */}
             <button
               onClick={() => setMenuOpen(true)}
-              className={`${iconButton} lg:hidden`}
+              className={`${iconButton} xl:hidden`}
               aria-label="Ouvrir le menu"
               aria-expanded={menuOpen}
             >
@@ -187,7 +187,7 @@ export default function Header() {
 
       {/* Tiroir de navigation mobile */}
       {menuOpen && (
-        <div className="lg:hidden fixed inset-0 z-[60] flex justify-end">
+        <div className="xl:hidden fixed inset-0 z-[60] flex justify-end">
           <div
             className="absolute inset-0 bg-black/70 backdrop-blur-sm"
             onClick={() => setMenuOpen(false)}
