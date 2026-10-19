@@ -69,14 +69,14 @@ export default function Header() {
       {/* En-tete Principal */}
       <header className="sticky top-0 z-50 w-full overflow-x-clip bg-black/95 backdrop-blur-sm border-b border-amber-900/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-2 sm:gap-4">
-          {/* Logo */}
-          {/* Logo texte : LAFILLECI by cino */}
-          <div className="shrink-0 min-w-0 py-3 sm:py-4">
-            <Link href="/" className="inline-flex flex-col items-start group">
-              <span className="text-sm sm:text-base md:text-lg lg:text-xl font-bold tracking-[0.25em] uppercase text-amber-100 group-hover:text-amber-300 transition whitespace-nowrap">
-                LAFILLE-CI
+          
+          {/* Logo texte : La Fille-Ci by cino */}
+          <div className="shrink-0 min-w-0 py-3">
+            <Link href="/" className="inline-flex items-baseline gap-2 group">
+              <span className="text-base sm:text-lg md:text-xl font-serif tracking-[0.2em] uppercase text-stone-100 group-hover:text-amber-300 transition duration-300">
+                La FiLLE-CI
               </span>
-              <span className="text-[9px] sm:text-[10px] tracking-[0.35em] uppercase text-amber-500/80 font-mono -mt-0.5">
+              <span className="text-[10px] sm:text-xs tracking-[0.3em] lowercase text-amber-500/90 font-light italic">
                 by cino
               </span>
             </Link>
@@ -95,14 +95,8 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Icones d'action */}
+          {/* Icones d'action (Recherche supprimee) */}
           <div className="flex items-center gap-0.5 sm:gap-1 shrink-0">
-            {/* Recherche */}
-            <button className={iconButton} aria-label="Recherche">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M10.5 10.5a6 6 0 100-12 6 6 0 000 12z" />
-              </svg>
-            </button>
 
             {/* Wishlist */}
             <Link href="/wishlist" className={iconButton} aria-label="Liste d'envies">
@@ -181,7 +175,7 @@ export default function Header() {
 
       {/* Tiroir de navigation mobile */}
       {menuOpen && (
-        <div className="xl:hidden fixed inset-0 z-60 flex justify-end">
+        <div className="xl:hidden fixed inset-0 z-[60] flex justify-end">
           <div
             className="absolute inset-0 bg-black/70 backdrop-blur-sm"
             onClick={() => setMenuOpen(false)}
