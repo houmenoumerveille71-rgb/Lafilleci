@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
-import { useWishlist } from '@/context/WishlistContext';
 import { useSession, signOut } from 'next-auth/react';
 
 const NAV_LINKS = [
@@ -20,7 +19,6 @@ const NAV_LINKS = [
 
 export default function Header() {
   const { totalItems } = useCart();
-  const { totalItems: wishlistCount } = useWishlist();
   const { data: session, status } = useSession();
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -72,13 +70,13 @@ export default function Header() {
       <header className="sticky top-0 z-50 w-full overflow-x-clip bg-black/95 backdrop-blur-sm border-b border-amber-900/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-2 sm:gap-4">
           {/* Logo */}
-          <div className="flex-shrink-0 min-w-0 py-3 sm:py-4">
+          <div className="shrink-0 min-w-0 py-3 sm:py-4">
             <Link href="/" className="inline-block">
               <img src="/uploads/8fcd247c-bfa2-4eed-9773-43c4d0f2eff3.jpg" alt="La fille-ci" className="h-8 sm:h-10 md:h-12 lg:h-14 object-contain" />
             </Link>
           </div>
 
-          {/* Navigation principale - visible a partir de 1280px (en dessous le menu deborde) */}
+          {/* Navigation principale - visible a partir de 1280px */}
           <nav className="hidden xl:flex flex-1 justify-center gap-x-6 2xl:gap-x-8 py-2">
             {NAV_LINKS.map((link) => (
               <Link
@@ -94,22 +92,17 @@ export default function Header() {
           {/* Icones d'action */}
           <div className="flex items-center gap-0.5 sm:gap-1 shrink-0">
             {/* Recherche */}
-            <button className={iconButton} aria-label="Rechercher">
+            <button className={iconButton} aria-label="Recherche">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M10.5 10.5a6 6 0 100-12 6 6 0 000 12z" />
               </svg>
             </button>
 
-            {/* Favoris - desktop */}
-            <Link href="/wishlist" className={`${iconButton} hidden lg:inline-flex relative`} aria-label="Liste d'envies">
+            {/* Wishlist */}
+            <Link href="/wishlist" className={iconButton} aria-label="Liste d'envies">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.575-4.688-4.575-1.39 0-2.64.675-3.312 1.722-.672-1.047-1.922-1.722-3.312-1.722C7.099 3.675 5 5.765 5 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
               </svg>
-              {wishlistCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-amber-500 text-amber-50 text-[10px]">
-                  {wishlistCount}
-                </span>
-              )}
             </Link>
 
             {/* Panier */}
@@ -182,7 +175,7 @@ export default function Header() {
 
       {/* Tiroir de navigation mobile */}
       {menuOpen && (
-        <div className="xl:hidden fixed inset-0 z-[60] flex justify-end">
+        <div className="xl:hidden fixed inset-0 z-60 flex justify-end">
           <div
             className="absolute inset-0 bg-black/70 backdrop-blur-sm"
             onClick={() => setMenuOpen(false)}
