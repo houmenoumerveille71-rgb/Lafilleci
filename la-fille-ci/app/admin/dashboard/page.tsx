@@ -45,8 +45,8 @@ export default async function AdminDashboardPage() {
         Tableau de Bord
       </h1>
 
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+       {/* Stats Cards */}
+       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div className="bg-stone-900 border border-amber-900/20 p-6">
           <p className="text-xs uppercase tracking-widest text-stone-400 mb-2">Commandes</p>
           <p className="text-3xl font-serif text-amber-100">{stats.totalOrders}</p>
