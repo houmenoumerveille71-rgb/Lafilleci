@@ -122,43 +122,46 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Hero Banners */}
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-1 p-2 bg-stone-900/40">
-        {banners.length > 0 ? (
-          banners.map((banner) => (
-            <div key={banner.id} className="relative h-[380px] sm:h-[480px] md:h-[580px] border border-amber-900/20 flex flex-col items-center justify-center text-center p-8 overflow-hidden group">
-              {banner.image ? (
-                <img 
-                  src={banner.image} 
-                  alt={banner.title} 
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              ) : null}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/30 z-10" />
-              <div className="relative z-20 max-w-sm">
-                <h2 className="text-3xl md:text-4xl font-serif text-amber-100 tracking-wider mb-2 uppercase">
-                  {banner.title}
-                </h2>
-                <p className="text-xs text-amber-200/80 tracking-widest uppercase mb-6 font-light">
-                  {banner.subtitle}
-                </p>
-              </div>
-            </div>
-          ))
-        ) : (
-          <>
-            <div className="relative h-[380px] sm:h-[480px] md:h-[580px] bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
-              [ Aucune bannière ]
-            </div>
-            <div className="relative h-[380px] sm:h-[480px] md:h-[580px] bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
-              [ Aucune bannière ]
-            </div>
-            <div className="relative h-[380px] sm:h-[480px] md:h-[580px] bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
-              [ Aucune bannière ]
-            </div>
-          </>
-        )}
-      </section> 
+       {/* Hero Banners */}
+       <section className="grid gap-4 p-2 bg-stone-900/40">
+         {/* Mobile: 1 column, Tablet: 2 columns, Desktop: 3 columns */}
+         <div className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+           {banners.length > 0 ? (
+             banners.map((banner) => (
+               <div key={banner.id} className="relative min-h-[200px] sm:min-h-[250px] lg:min-h-[300px] border border-amber-900/20 flex flex-col items-center justify-center text-center p-6 overflow-hidden group">
+                 {banner.image ? (
+                   <img 
+                     src={banner.image} 
+                     alt={banner.title} 
+                     className="absolute inset-0 w-full h-full object-cover"
+                   />
+                 ) : null}
+                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/30 z-10" />
+                 <div className="relative z-20 max-w-sm">
+                   <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif text-amber-100 tracking-wider mb-2 uppercase">
+                     {banner.title}
+                   </h2>
+                   <p className="text-sm sm:text-base text-amber-200/80 tracking-widest uppercase mb-4 font-light">
+                     {banner.subtitle}
+                   </p>
+                 </div>
+               </div>
+             ))
+           ) : (
+             <>
+               <div className="relative min-h-[200px] sm:min-h-[250px] lg:min-h-[300px] bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
+                 [ Aucune bannière ]
+               </div>
+               <div className="relative min-h-[200px] sm:min-h-[250px] lg:min-h-[300px] bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
+                 [ Aucune bannière ]
+               </div>
+               <div className="relative min-h-[200px] sm:min-h-[250px] lg:min-h-[300px] bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
+                 [ Aucune bannière ]
+               </div>
+             </>
+           )}
+         </div>
+       </section>
 
       {/* Bouton Tout Voir */}
       <div className="text-center py-6 bg-black">
@@ -183,20 +186,20 @@ export default function Home() {
           )}
         </div>
 
-        {/* Grille Cartes Produits */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-          {filteredProducts.map((item) => (
-            <ProductCard 
-              key={item.id} 
-              name={item.name} 
-              price={item.price} 
-              image={item.image}
-              stock={item.stock}
-              description={item.description}
-              category={item.category}
-            />
-          ))}
-        </div>
+         {/* Grille Cartes Produits */}
+         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+           {filteredProducts.map((item) => (
+             <ProductCard 
+               key={item.id} 
+               name={item.name} 
+               price={item.price} 
+               image={item.image}
+               stock={item.stock}
+               description={item.description}
+               category={item.category}
+             />
+           ))}
+         </div>
       </section>
 
       {/* Collections en Vedette / Grille Catégories */}
@@ -210,44 +213,46 @@ export default function Home() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {categoryBanners.length > 0 ? (
-            categoryBanners.map((banner) => (
-              <div key={banner.id} className="relative h-64 bg-stone-900 border border-amber-900/30 flex items-center justify-center group cursor-pointer overflow-hidden">
-                {banner.image ? (
-                  <img src={banner.image} alt={banner.title} className="absolute inset-0 w-full h-full object-cover" />
-                ) : null}
-                <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition" />
-                <h3 className="relative z-10 text-xl font-serif tracking-widest text-amber-100 uppercase">
-                  {banner.title}
-                </h3>
-              </div>
-            ))
-          ) : (
-            <>
-              <div className="relative h-64 bg-stone-900 border border-amber-900/30 flex items-center justify-center text-stone-700 text-xs">
-                [ Aucune image ]
-              </div>
-              <div className="bg-stone-950 border border-amber-900/30 p-8 flex flex-col items-center justify-center text-center">
-                <p className="text-[10px] tracking-[0.25em] text-amber-400 uppercase mb-2">
-                  Ce que disent nos clients
-                </p>
-                <h3 className="text-lg font-serif tracking-widest text-amber-100 uppercase mb-4">
-                  Vêtements de Sport
-                </h3>
-                <blockquote className="text-xs italic text-stone-400 mb-3 font-light">
-                  &ldquo;J&rsquo;adore la coupe et la qualit&eacute;, une vraie touche d&rsquo;&eacute;l&eacute;gance au quotidien.&rdquo;
-                </blockquote>
-                <div className="text-amber-400 text-xs tracking-widest">
-                  ★★★★★
-                </div>
-              </div>
-              <div className="relative h-64 bg-stone-900 border border-amber-900/30 flex items-center justify-center text-stone-700 text-xs">
-                [ Aucune image ]
-              </div>
-            </>
-          )}
-        </div>
+         <div className="grid gap-6">
+           <div className="sm:grid-cols-2 lg:grid-cols-3">
+             {categoryBanners.length > 0 ? (
+               categoryBanners.map((banner) => (
+                 <div key={banner.id} className="relative min-h-[60px] sm:min-h-[80px] lg:min-h-[64] bg-stone-900 border border-amber-900/30 flex items-center justify-center group cursor-pointer overflow-hidden">
+                   {banner.image ? (
+                     <img src={banner.image} alt={banner.title} className="absolute inset-0 w-full h-full object-cover" />
+                   ) : null}
+                   <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition" />
+                   <h3 className="relative z-10 text-sm sm:text-base lg:text-xl font-serif tracking-widest text-amber-100 uppercase">
+                     {banner.title}
+                   </h3>
+                 </div>
+               ))
+             ) : (
+               <>
+                 <div className="relative min-h-[60px] sm:min-h-[80px] lg:min-h-[64] bg-stone-900 border border-amber-900/30 flex items-center justify-center text-stone-700 text-xs">
+                   [ Aucune image ]
+                 </div>
+                 <div className="bg-stone-950 border border-amber-900/30 p-4 sm:p-6 flex flex-col items-center justify-center text-center">
+                   <p className="text-[10px] sm:text-xs tracking-[0.25em] text-amber-400 uppercase mb-2">
+                     Ce que disent nos clients
+                   </p>
+                   <h3 className="text-sm sm:text-base lg:text-lg font-serif tracking-widest text-amber-100 uppercase mb-4">
+                     Vêtements de Sport
+                   </h3>
+                   <blockquote className="text-xs sm:text-sm italic text-stone-400 mb-3 font-light">
+                     &ldquo;J&rsquo;adore la coupe et la qualit&eacute;, une vraie touche d&rsquo;&eacute;l&eacute;gance au quotidien.&rdquo;
+                   </blockquote>
+                   <div className="text-amber-400 text-xs tracking-widest">
+                     ★★★★★
+                   </div>
+                 </div>
+                 <div className="relative min-h-[60px] sm:min-h-[80px] lg:min-h-[64] bg-stone-900 border border-amber-900/30 flex items-center justify-center text-stone-700 text-xs">
+                   [ Aucune image ]
+                 </div>
+               </>
+             )}
+           </div>
+         </div>
       </section>
 
       {/* Feed Social / Grille Instagram */}
@@ -261,25 +266,29 @@ export default function Home() {
           </Link>
         </div>
 
-        {instagramPosts.length > 0 ? (
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-            {instagramPosts.map((post) => (
-              <div key={post.id} className="aspect-square bg-stone-900 border border-amber-900/20 overflow-hidden">
-                {post.image ? (
-                  <img src={post.image} alt={post.alt || ''} className="w-full h-full object-cover hover:border-amber-500/50 transition cursor-pointer" />
-                ) : null}
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-            {Array.from({ length: 12 }).map((_, i) => (
-              <div key={i} className="aspect-square bg-stone-900 border border-amber-900/20 flex items-center justify-center text-[10px] text-stone-700">
-                [ Aucune image ]
-              </div>
-            ))}
-          </div>
-        )}
+         {instagramPosts.length > 0 ? (
+           <div className="grid gap-2">
+             <div className="sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+               {instagramPosts.map((post) => (
+                 <div key={post.id} className="aspect-square bg-stone-900 border border-amber-900/20 overflow-hidden">
+                   {post.image ? (
+                     <img src={post.image} alt={post.alt || ''} className="w-full h-full object-cover hover:border-amber-500/50 transition cursor-pointer" />
+                   ) : null}
+                 </div>
+               ))}
+             </div>
+           </div>
+         ) : (
+           <div className="grid gap-2">
+             <div className="sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+               {Array.from({ length: 12 }).map((_, i) => (
+                 <div key={i} className="aspect-square bg-stone-900 border border-amber-900/20 flex items-center justify-center text-[10px] sm:text-xs text-stone-700">
+                   [ Aucune image ]
+                 </div>
+               ))}
+             </div>
+           </div>
+         )}
       </section>
 
       <Footer />
