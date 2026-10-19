@@ -122,10 +122,10 @@ export default function Home() {
         </div>
       </section>
 
-       {/* Hero Banners */}
-       <section className="grid gap-4 p-2 bg-stone-900/40">
-         {/* Mobile: 1 column, Tablet: 2 columns, Desktop: 3 columns */}
-         <div className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Hero Banners */}
+        <section className="grid gap-4 p-2 bg-stone-900/40">
+          {/* Mobile: 1 column, Tablet and up: 3 columns */}
+          <div className="grid-cols-1 md:grid-cols-3">
            {banners.length > 0 ? (
              banners.map((banner) => (
                <div key={banner.id} className="relative min-h-[200px] sm:min-h-[250px] lg:min-h-[300px] border border-amber-900/20 flex flex-col items-center justify-center text-center p-6 overflow-hidden group">
@@ -213,8 +213,8 @@ export default function Home() {
           </h2>
         </div>
 
-         <div className="grid gap-6">
-           <div className="sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6">
+            <div className="grid-cols-1 md:grid-cols-3">
              {categoryBanners.length > 0 ? (
                categoryBanners.map((banner) => (
                  <div key={banner.id} className="relative min-h-[60px] sm:min-h-[80px] lg:min-h-[64] bg-stone-900 border border-amber-900/30 flex items-center justify-center group cursor-pointer overflow-hidden">
@@ -266,29 +266,29 @@ export default function Home() {
           </Link>
         </div>
 
-         {instagramPosts.length > 0 ? (
-           <div className="grid gap-2">
-             <div className="sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
-               {instagramPosts.map((post) => (
-                 <div key={post.id} className="aspect-square bg-stone-900 border border-amber-900/20 overflow-hidden">
-                   {post.image ? (
-                     <img src={post.image} alt={post.alt || ''} className="w-full h-full object-cover hover:border-amber-500/50 transition cursor-pointer" />
-                   ) : null}
-                 </div>
-               ))}
-             </div>
-           </div>
-         ) : (
-           <div className="grid gap-2">
-             <div className="sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
-               {Array.from({ length: 12 }).map((_, i) => (
-                 <div key={i} className="aspect-square bg-stone-900 border border-amber-900/20 flex items-center justify-center text-[10px] sm:text-xs text-stone-700">
-                   [ Aucune image ]
-                 </div>
-               ))}
-             </div>
-           </div>
-         )}
+          {instagramPosts.length > 0 ? (
+            <div className="grid gap-2">
+              <div className="grid-cols-1 md:grid-cols-3">
+                {instagramPosts.map((post) => (
+                  <div key={post.id} className="aspect-square bg-stone-900 border border-amber-900/20 overflow-hidden">
+                    {post.image ? (
+                      <img src={post.image} alt={post.alt || ''} className="w-full h-full object-cover hover:border-amber-500/50 transition cursor-pointer" />
+                    ) : null}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="grid gap-2">
+              <div className="grid-cols-1 md:grid-cols-3">
+                {Array.from({ length: 12 }).map((_, i) => (
+                  <div key={i} className="aspect-square bg-stone-900 border border-amber-900/20 flex items-center justify-center text-[10px] sm:text-xs text-stone-700">
+                    [ Aucune image ]
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
       </section>
 
       <Footer />
