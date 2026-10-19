@@ -70,9 +70,15 @@ export default function Header() {
       <header className="sticky top-0 z-50 w-full overflow-x-clip bg-black/95 backdrop-blur-sm border-b border-amber-900/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-2 sm:gap-4">
           {/* Logo */}
+          {/* Logo texte : LAFILLECI by cino */}
           <div className="shrink-0 min-w-0 py-3 sm:py-4">
-            <Link href="/" className="inline-block">
-              <img src="/uploads/8fcd247c-bfa2-4eed-9773-43c4d0f2eff3.jpg" alt="La fille-ci" className="h-8 sm:h-10 md:h-12 lg:h-14 object-contain" />
+            <Link href="/" className="inline-flex flex-col items-start group">
+              <span className="text-sm sm:text-base md:text-lg lg:text-xl font-bold tracking-[0.25em] uppercase text-amber-100 group-hover:text-amber-300 transition whitespace-nowrap">
+                LAFILLE-CI
+              </span>
+              <span className="text-[9px] sm:text-[10px] tracking-[0.35em] uppercase text-amber-500/80 font-mono -mt-0.5">
+                by cino
+              </span>
             </Link>
           </div>
 
