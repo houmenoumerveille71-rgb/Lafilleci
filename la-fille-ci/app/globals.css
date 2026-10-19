@@ -1,6 +1,11 @@
 @import "tailwindcss";
 
+html {
+  overflow-x: clip;
+}
+
 body {
+  overflow-x: clip;
   background-color: #faf7f5;
   color: #1a1a1a;
   font-family:
