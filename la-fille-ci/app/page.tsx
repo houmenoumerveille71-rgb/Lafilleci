@@ -122,13 +122,13 @@ export default function Home() {
         </div>
       </section>
 
-        {/* Hero Banners */}
-        <section className="grid gap-4 p-2 bg-stone-900/40">
-          {/* Mobile: 1 column, Tablet and up: 3 columns */}
-          <div className="grid-cols-1 md:grid-cols-3">
+{/* Hero Banners */}
+       <section className="grid gap-4 p-2 bg-stone-900/40">
+         {/* Mobile: 1 column, Tablet and up: 3 columns */}
+         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
            {banners.length > 0 ? (
              banners.map((banner) => (
-               <div key={banner.id} className="relative min-h-[200px] sm:min-h-[250px] lg:min-h-[300px] border border-amber-900/20 flex flex-col items-center justify-center text-center p-6 overflow-hidden group">
+               <div key={banner.id} className="relative aspect-[4/3] min-h-[200px] sm:min-h-[250px] lg:min-h-[300px] border border-amber-900/20 flex flex-col items-center justify-center text-center p-6 overflow-hidden group">
                  {banner.image ? (
                    <img 
                      src={banner.image} 
@@ -149,13 +149,13 @@ export default function Home() {
              ))
            ) : (
              <>
-               <div className="relative min-h-[200px] sm:min-h-[250px] lg:min-h-[300px] bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
+               <div className="relative aspect-[4/3] min-h-[200px] sm:min-h-[250px] lg:min-h-[300px] bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
                  [ Aucune bannière ]
                </div>
-               <div className="relative min-h-[200px] sm:min-h-[250px] lg:min-h-[300px] bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
+               <div className="relative aspect-[4/3] min-h-[200px] sm:min-h-[250px] lg:min-h-[300px] bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
                  [ Aucune bannière ]
                </div>
-               <div className="relative min-h-[200px] sm:min-h-[250px] lg:min-h-[300px] bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
+               <div className="relative aspect-[4/3] min-h-[200px] sm:min-h-[250px] lg:min-h-[300px] bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
                  [ Aucune bannière ]
                </div>
              </>
@@ -213,46 +213,46 @@ export default function Home() {
           </h2>
         </div>
 
-          <div className="grid gap-6">
-            <div className="grid-cols-1 md:grid-cols-3">
-             {categoryBanners.length > 0 ? (
-               categoryBanners.map((banner) => (
-                 <div key={banner.id} className="relative min-h-[60px] sm:min-h-[80px] lg:min-h-[64] bg-stone-900 border border-amber-900/30 flex items-center justify-center group cursor-pointer overflow-hidden">
-                   {banner.image ? (
-                     <img src={banner.image} alt={banner.title} className="absolute inset-0 w-full h-full object-cover" />
-                   ) : null}
-                   <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition" />
-                   <h3 className="relative z-10 text-sm sm:text-base lg:text-xl font-serif tracking-widest text-amber-100 uppercase">
-                     {banner.title}
-                   </h3>
-                 </div>
-               ))
-             ) : (
-               <>
-                 <div className="relative min-h-[60px] sm:min-h-[80px] lg:min-h-[64] bg-stone-900 border border-amber-900/30 flex items-center justify-center text-stone-700 text-xs">
-                   [ Aucune image ]
-                 </div>
-                 <div className="bg-stone-950 border border-amber-900/30 p-4 sm:p-6 flex flex-col items-center justify-center text-center">
-                   <p className="text-[10px] sm:text-xs tracking-[0.25em] text-amber-400 uppercase mb-2">
-                     Ce que disent nos clients
-                   </p>
-                   <h3 className="text-sm sm:text-base lg:text-lg font-serif tracking-widest text-amber-100 uppercase mb-4">
-                     Vêtements de Sport
-                   </h3>
-                   <blockquote className="text-xs sm:text-sm italic text-stone-400 mb-3 font-light">
-                     &ldquo;J&rsquo;adore la coupe et la qualit&eacute;, une vraie touche d&rsquo;&eacute;l&eacute;gance au quotidien.&rdquo;
-                   </blockquote>
-                   <div className="text-amber-400 text-xs tracking-widest">
-                     ★★★★★
+<div className="grid gap-6">
+             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+               {categoryBanners.length > 0 ? (
+                 categoryBanners.map((banner) => (
+                   <div key={banner.id} className="relative aspect-[4/3] min-h-[200px] bg-stone-900 border border-amber-900/30 flex items-center justify-center group cursor-pointer overflow-hidden">
+                     {banner.image ? (
+                       <img src={banner.image} alt={banner.title} className="absolute inset-0 w-full h-full object-cover" />
+                     ) : null}
+                     <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition" />
+                     <h3 className="relative z-10 text-lg sm:text-xl font-serif tracking-widest text-amber-100 uppercase">
+                       {banner.title}
+                     </h3>
                    </div>
-                 </div>
-                 <div className="relative min-h-[60px] sm:min-h-[80px] lg:min-h-[64] bg-stone-900 border border-amber-900/30 flex items-center justify-center text-stone-700 text-xs">
-                   [ Aucune image ]
-                 </div>
-               </>
-             )}
+                 ))
+               ) : (
+                 <>
+                   <div className="relative aspect-[4/3] min-h-[200px] bg-stone-900 border border-amber-900/30 flex items-center justify-center text-stone-700 text-xs">
+                     [ Aucune image ]
+                   </div>
+                   <div className="bg-stone-950 border border-amber-900/30 p-4 sm:p-6 flex flex-col items-center justify-center text-center aspect-[4/3] min-h-[200px]">
+                     <p className="text-[10px] sm:text-xs tracking-[0.25em] text-amber-400 uppercase mb-2">
+                       Ce que disent nos clients
+                     </p>
+                     <h3 className="text-base sm:text-lg font-serif tracking-widest text-amber-100 uppercase mb-4">
+                       Vêtements de Sport
+                     </h3>
+                     <blockquote className="text-xs sm:text-sm italic text-stone-400 mb-3 font-light">
+                       &ldquo;J&rsquo;adore la coupe et la qualit&eacute;, une vraie touche d&rsquo;&eacute;l&eacute;gance au quotidien.&rdquo;
+                     </blockquote>
+                     <div className="text-amber-400 text-xs tracking-widest">
+                       ★★★★★
+                     </div>
+                   </div>
+                   <div className="relative aspect-[4/3] min-h-[200px] bg-stone-900 border border-amber-900/30 flex items-center justify-center text-stone-700 text-xs">
+                     [ Aucune image ]
+                   </div>
+                 </>
+               )}
+             </div>
            </div>
-         </div>
       </section>
 
       {/* Feed Social / Grille Instagram */}
@@ -267,26 +267,22 @@ export default function Home() {
         </div>
 
           {instagramPosts.length > 0 ? (
-            <div className="grid gap-2">
-              <div className="grid-cols-1 md:grid-cols-3">
-                {instagramPosts.map((post) => (
-                  <div key={post.id} className="aspect-square bg-stone-900 border border-amber-900/20 overflow-hidden">
-                    {post.image ? (
-                      <img src={post.image} alt={post.alt || ''} className="w-full h-full object-cover hover:border-amber-500/50 transition cursor-pointer" />
-                    ) : null}
-                  </div>
-                ))}
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+              {instagramPosts.map((post) => (
+                <div key={post.id} className="aspect-square bg-stone-900 border border-amber-900/20 overflow-hidden">
+                  {post.image ? (
+                    <img src={post.image} alt={post.alt || ''} className="w-full h-full object-cover hover:border-amber-500/50 transition cursor-pointer" />
+                  ) : null}
+                </div>
+              ))}
             </div>
           ) : (
-            <div className="grid gap-2">
-              <div className="grid-cols-1 md:grid-cols-3">
-                {Array.from({ length: 12 }).map((_, i) => (
-                  <div key={i} className="aspect-square bg-stone-900 border border-amber-900/20 flex items-center justify-center text-[10px] sm:text-xs text-stone-700">
-                    [ Aucune image ]
-                  </div>
-                ))}
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+              {Array.from({ length: 12 }).map((_, i) => (
+                <div key={i} className="aspect-square bg-stone-900 border border-amber-900/20 flex items-center justify-center text-[10px] sm:text-xs text-stone-700">
+                  [ Aucune image ]
+                </div>
+              ))}
             </div>
           )}
       </section>
