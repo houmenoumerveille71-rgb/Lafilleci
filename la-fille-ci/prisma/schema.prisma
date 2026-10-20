@@ -41,7 +41,8 @@ model Order {
   user          User?       @relation(fields: [userId], references: [id])
   items         OrderItem[]
 
-  @@index([userId], map: "Order_userId_fkey")
+  @@index([userId])
+  @@map("orders")
 }
 
 model OrderItem {
