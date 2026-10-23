@@ -125,7 +125,16 @@ export async function POST(request: Request) {
       Math.round(amount * 100);
 
     const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] =
-      pricedItems.map(({ product, quantity, unitAmount }) => ({
+      pricedItems.map(
+        ({
+          product,
+          quantity,
+          unitAmount,
+        }: {
+          product: { id: number; price: string; name: string; stock: number; image: string };
+          quantity: number;
+          unitAmount: number;
+        }) => ({
         price_data: {
           currency: 'usd',
           product_data: {
@@ -154,7 +163,15 @@ export async function POST(request: Request) {
         status: 'pending',
         items: {
           create: pricedItems.map(
-            ({ product, quantity, unitAmount }) => ({
+            ({
+              product,
+              quantity,
+              unitAmount,
+            }: {
+              product: { id: number };
+              quantity: number;
+              unitAmount: number;
+            }) => ({
               productId: product.id,
               quantity,
               price: unitAmount,
