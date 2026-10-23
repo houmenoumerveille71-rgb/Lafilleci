@@ -101,72 +101,56 @@ model Account {
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
-  @@index([userId], map: "Account_userId_fkey")
+  @@index([userId])
 }
 
 model Session {
-   id           String   @id @default(cuid())
-   sessionToken String   @unique
-   userId       Int
-   expires      DateTime
-   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       Int
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-   @@index([userId], map: "Session_userId_fkey")
+  @@index([userId])
 }
 
 model VerificationToken {
-   id         Int      @id @default(autoincrement())
-   identifier String
-   token      String   @unique
-   expires    DateTime
+  id         Int      @id @default(autoincrement())
+  identifier String
+  token      String   @unique
+  expires    DateTime
 
-   @@unique([identifier, token])
+  @@unique([identifier, token])
 }
 
 model NewsletterSubscriber {
-   id        Int      @id @default(autoincrement())
-   email     String   @unique
-   createdAt DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  createdAt DateTime @default(now())
 }
 
 model Banner {
-   id        Int      @id @default(autoincrement())
-   title     String
-   subtitle  String
-   image     String
-   active    Boolean  @default(true)
-   createdAt DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  title     String
+  subtitle  String
+  image     String
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
 }
 
 model CategoryBanner {
-   id        Int      @id @default(autoincrement())
-   title     String
-   slug      String   @unique
-   image     String
-   active    Boolean  @default(true)
-   createdAt DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  title     String
+  slug      String   @unique
+  image     String
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
 }
 
 model InstagramPost {
-   id        Int      @id @default(autoincrement())
-   image     String
-   alt       String?
-   active    Boolean  @default(true)
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-   createdAt DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  image     String
+  alt       String?
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
 }
