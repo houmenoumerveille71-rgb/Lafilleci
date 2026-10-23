@@ -51,7 +51,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Un ou plusieurs produits n existent plus' }, { status: 404 });
     }
 
-    const pricedItems = products.map((product: { id: number; price: string; name: string; stock: number }) => {
+    const pricedItems = products.map((product: { id: number; price: string; name: string; stock: number; image: string }) => {
       const quantity = quantities.get(product.id)!;
       const unitAmount = parsePrice(product.price);
 
