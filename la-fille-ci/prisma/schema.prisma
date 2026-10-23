@@ -152,5 +152,21 @@ model InstagramPost {
    image     String
    alt       String?
    active    Boolean  @default(true)
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
    createdAt DateTime @default(now())
 }
