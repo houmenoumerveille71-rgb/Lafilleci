@@ -153,4 +153,4 @@ model InstagramPost {
   alt       String?
   active    Boolean  @default(true)
   createdAt DateTime @default(now())
-}
+}   
