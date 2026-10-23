@@ -82,7 +82,14 @@ export async function POST(request: Request) {
       );
     }
 
-    const pricedItems = products.map((product) => {
+    const pricedItems = products.map(
+      (product: {
+        id: number;
+        price: string;
+        name: string;
+        stock: number;
+        image: string;
+      }) => {
       const quantity = quantities.get(product.id)!;
       const unitAmount = parsePrice(String(product.price));
 
