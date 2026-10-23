@@ -110,7 +110,7 @@ export async function POST(request: Request) {
 
     // Calcul du sous-total : sum est explicitement un nombre.
     const subtotal = pricedItems.reduce(
-      (sum: number, item) =>
+      (sum: number, item: { unitAmount: number; quantity: number }) =>
         sum + item.unitAmount * item.quantity,
       0
     );
