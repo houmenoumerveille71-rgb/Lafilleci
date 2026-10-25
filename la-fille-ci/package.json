@@ -21,6 +21,7 @@
     "@stripe/stripe-js": "^9.12.1",
     "@types/bcryptjs": "^2.4.6",
     "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.11.0",
     "formidable": "^3.5.4",
     "next": "16.2.12",
     "next-auth": "^4.24.15",
