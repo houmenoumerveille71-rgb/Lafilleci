@@ -27,6 +27,7 @@ export async function POST(request: Request) {
         { resource_type: 'image', folder: 'lafille-ci' },
         (error, result) => {
           if (error) reject(error);
+          else if (!result) reject(new Error('No result from Cloudinary'));
           else resolve(result);
         }
       ).end(buffer);
