@@ -1,7 +1,12 @@
 import { NextResponse } from 'next/server';
-import { writeFile } from 'fs/promises';
-import path from 'path';
-import { randomUUID } from 'crypto';
+import { v2 as cloudinary } from 'cloudinary';
+import { UploadApiResponse } from 'cloudinary';
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export const runtime = 'nodejs';
 
@@ -16,15 +21,18 @@ export async function POST(request: Request) {
 
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    const ext = path.extname(file.name);
-    const filename = `${randomUUID()}${ext}`;
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads');
 
-    await writeFile(path.join(uploadDir, filename), buffer);
+    const result: UploadApiResponse = await new Promise((resolve, reject) => {
+      cloudinary.uploader.upload_stream(
+        { resource_type: 'image', folder: 'lafille-ci' },
+        (error, result) => {
+          if (error) reject(error);
+          else resolve(result);
+        }
+      ).end(buffer);
+    });
 
-    const imageUrl = `/uploads/${filename}`;
-
-    return NextResponse.json({ imageUrl }, { status: 201 });
+    return NextResponse.json({ imageUrl: result.secure_url }, { status: 201 });
   } catch (error) {
     console.error('Failed to upload image:', error);
     return NextResponse.json({ error: 'Failed to upload image' }, { status: 500 });
