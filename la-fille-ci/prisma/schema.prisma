@@ -19,6 +19,7 @@ model Product {
   updatedAt     DateTime       @updatedAt
   orderItems    OrderItem[]
   wishlistItems WishlistItem[]
+  reviews       Review[]
 }
 
 model Order {
@@ -85,6 +86,7 @@ model User {
   orders        Order[]
   sessions      Session[]
   wishlistItems WishlistItem[]
+  reviews       Review[]
 }
 
 model Account {
