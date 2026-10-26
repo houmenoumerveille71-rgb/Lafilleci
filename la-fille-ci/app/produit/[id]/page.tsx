@@ -39,7 +39,6 @@ export default async function ProductPage({ params }: Props) {
     .filter((p) => p.category === product.category && p.id !== product.id)
     .slice(0, 4);
 
-  // Client-side state for reviews
   const [reviews, setReviews] = useState<any[]>([]);
   const [averageRating, setAverageRating] = useState(0);
   const [totalReviews, setTotalReviews] = useState(0);
@@ -52,9 +51,7 @@ export default async function ProductPage({ params }: Props) {
   const [session, setSession] = useState<any>(null);
 
   useEffect(() => {
-    // Fetch session
     getServerSession(authOptions).then((s) => setSession(s));
-    // Fetch reviews
     fetchReviews();
   }, []);
 
@@ -67,7 +64,6 @@ export default async function ProductPage({ params }: Props) {
         setAverageRating(data.averageRating || 0);
         setTotalReviews(data.totalReviews || 0);
 
-        // Check if current user already reviewed
         if (session?.user && data.reviews) {
           const existing = data.reviews.find((r: any) => r.userId === session.user.id);
           if (existing) {
@@ -135,11 +131,9 @@ export default async function ProductPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-black text-amber-50 font-sans selection:bg-amber-900 selection:text-white">
-      
       <Header />
 
       <section className="py-16 px-6 max-w-7xl mx-auto">
-        {/* Breadcrumb */}
         <nav className="flex items-center gap-2 text-xs text-stone-500 mb-8">
           <Link href="/" className="hover:text-amber-400 transition">Accueil</Link>
           <span>/</span>
@@ -148,9 +142,8 @@ export default async function ProductPage({ params }: Props) {
           <span className="text-amber-100">{product.name}</span>
         </nav>
 
-         <div className="grid gap-12">
+        <div className="grid gap-12">
           <div className="sm:grid-cols-2 lg:grid-cols-3">
-            {/* Product Image */}
             <div className="relative aspect-w-3 aspect-h-4 bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
               {product.image ? (
                 <img src={product.image} alt={product.name} className="w-full h-full object-contain" />
@@ -159,7 +152,6 @@ export default async function ProductPage({ params }: Props) {
               )}
             </div>
 
-            {/* Product Info */}
             <div className="flex flex-col justify-center">
               <span className="text-[10px] tracking-[0.3em] uppercase text-amber-500/80 mb-2">
                 {product.category}
@@ -167,8 +159,7 @@ export default async function ProductPage({ params }: Props) {
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif tracking-wider text-amber-100 uppercase mb-4">
                 {product.name}
               </h1>
-              
-              {/* Rating */}
+
               <div className="flex items-center gap-2 mb-4">
                 {renderStars(averageRating)}
                 <span className="text-xs text-stone-400 font-mono">
@@ -182,7 +173,7 @@ export default async function ProductPage({ params }: Props) {
 
               <div className="space-y-4 mb-8">
                 <p className="text-sm text-stone-400 leading-relaxed">
-                  {product.description || 'Une pièce exceptionnelle qui allie élégance et raffinement. Confectionnée avec des matériaux de haute qualité, cette création incarne le savoir-faire de notre atelier de luxe.'}
+                  {product.description || 'Une pièce exceptionnelle qui allie élégance et raffinement.'}
                 </p>
               </div>
 
@@ -200,7 +191,6 @@ export default async function ProductPage({ params }: Props) {
           </div>
         </div>
 
-        {/* Avis Clients */}
         <section className="py-16 px-6 max-w-7xl mx-auto border-t border-amber-900/20">
           <div className="flex flex-col sm:flex-row justify-between items-end gap-4 mb-12">
             <div>
@@ -223,7 +213,6 @@ export default async function ProductPage({ params }: Props) {
             )}
           </div>
 
-          {/* Formulaire d'avis */}
           <div className="bg-stone-950 border border-amber-900/20 p-6 mb-12">
             <h3 className="text-xl font-serif tracking-widest text-amber-100 uppercase mb-4">
               {session ? 'Donner votre avis' : 'Connectez-vous pour donner votre avis'}
@@ -307,7 +296,6 @@ export default async function ProductPage({ params }: Props) {
             )}
           </div>
 
-          {/* Liste des avis */}
           <div className="space-y-6">
             {reviews.length > 0 ? (
               reviews.map((review: any) => (
@@ -339,7 +327,6 @@ export default async function ProductPage({ params }: Props) {
           </div>
         </section>
 
-        {/* Related Products */}
         {relatedProducts.length > 0 && (
           <section className="py-16 px-6 max-w-7xl mx-auto border-t border-amber-900/20">
             <div className="text-center mb-12">
@@ -354,10 +341,10 @@ export default async function ProductPage({ params }: Props) {
             <div className="grid gap-6">
               <div className="sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {relatedProducts.map((item) => (
-                  <ProductCard 
-                    key={item.id} 
-                    name={item.name} 
-                    price={item.price} 
+                  <ProductCard
+                    key={item.id}
+                    name={item.name}
+                    price={item.price}
                     image={item.image}
                     stock={item.stock}
                     description={item.description}
@@ -370,7 +357,7 @@ export default async function ProductPage({ params }: Props) {
         )}
 
         <Footer />
-
-      </div>
-    );
+      </section>
+    </div>
+  );
 }
