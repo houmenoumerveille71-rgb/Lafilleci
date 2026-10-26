@@ -85,8 +85,8 @@ model User {
   accounts      Account[]
   orders        Order[]
   sessions      Session[]
-  wishlistItems WishlistItem[]
   reviews       Review[]
+  wishlistItems WishlistItem[]
 }
 
 model Account {
