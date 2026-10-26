@@ -1,3 +1,5 @@
+'use client';
+
 import { Metadata } from 'next';
 import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
