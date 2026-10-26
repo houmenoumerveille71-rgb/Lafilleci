@@ -18,6 +18,11 @@ export default function AdminProduitsPage() {
     stock: '0',
   });
 
+  const [importFile, setImportFile] = useState<File | null>(null);
+  const [importing, setImporting] = useState(false);
+  const [importError, setImportError] = useState('');
+  const [importSuccess, setImportSuccess] = useState<any>(null);
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -98,6 +103,37 @@ export default function AdminProduitsPage() {
     setIsCreating(false);
   };
 
+  const handleImport = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!importFile) return;
+    setImporting(true);
+    setImportError('');
+    setImportSuccess(null);
+
+    try {
+      const formData = new FormData();
+      formData.append('file', importFile);
+
+      const res = await fetch('/api/admin/products/import', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setImportError(data.error || 'Erreur lors de limportation');
+      } else {
+        setImportSuccess(data);
+        fetchProducts();
+      }
+    } catch (error) {
+      setImportError('Une erreur est survenue lors de limportation');
+    } finally {
+      setImporting(false);
+    }
+  };
+
   if (loading) {
     return <div className="text-center text-stone-400">Chargement...</div>;
   }
@@ -114,6 +150,71 @@ export default function AdminProduitsPage() {
         >
           Nouveau Produit
         </button>
+      </div>
+
+      {/* Import en Masse */}
+      <div className="bg-stone-900 border border-amber-900/20 p-6 mb-8">
+        <h2 className="text-lg font-serif tracking-widest text-amber-100 uppercase mb-4">
+          Import en Masse (CSV)
+        </h2>
+        <p className="text-xs text-stone-500 mb-4">
+          Importez 20 à 50 produits d'un coup via un fichier CSV. Colonnes requises : name, price, category.
+        </p>
+        
+        <div className="flex flex-col sm:flex-row gap-4 items-start">
+          <div className="relative flex-1 sm:w-96">
+            <label className="block text-xs uppercase tracking-widest text-amber-200 mb-2">
+              Sélectionner le fichier CSV
+            </label>
+            <input
+              type="file"
+              accept=".csv"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+                setImportFile(file);
+              }}
+              className="w-full bg-black border border-amber-900/40 text-xs px-4 py-2 text-stone-200 focus:outline-none focus:border-amber-500"
+            />
+            {importFile && (
+              <div className="mt-2 p-3 bg-stone-800/50 border border-amber-900/30 rounded">
+                <span className="text-xs text-amber-100">{importFile.name}</span>
+                <span className="text-[10px] text-stone-500 ml-2">({Math.round(importFile.size / 1024)} KB)</span>
+              </div>
+            )}
+          </div>
+          
+          <button
+            onClick={handleImport}
+            disabled={importing || !importFile}
+            className="bg-amber-800/80 hover:bg-amber-700 disabled:bg-stone-700 disabled:cursor-not-allowed text-amber-100 border border-amber-600/40 px-6 py-3 text-xs tracking-[0.25em] uppercase transition whitespace-nowrap"
+          >
+            {importing ? 'Importation...' : 'Importer les produits'}
+          </button>
+        </div>
+
+        {importError && (
+          <div className="bg-red-950 border border-red-700 text-red-100 px-4 py-3 text-sm mt-4">
+            {importError}
+          </div>
+        )}
+        
+        {importSuccess && (
+          <div className="bg-green-950 border border-green-700 text-green-100 px-4 py-3 text-sm mt-4">
+            {importSuccess.created} produits importés avec succès !{importSuccess.errors > 0 && ` (${importSuccess.errors} erreurs)`}
+          </div>
+        )}
+        
+        {importSuccess?.errorDetails?.length && importSuccess.errorDetails.length > 0 && (
+          <div className="mt-4 max-h-40 overflow-y-auto p-3 bg-stone-800 border border-amber-900/20 rounded text-[10px]">
+            <h5 className="text-xs uppercase text-stone-400 mb-2">Erreurs :</h5>
+            {importSuccess.errorDetails.map((e: any, i: number) => (
+              <div key={i} className="text-stone-300 mb-1">
+                Ligne {e.ligne}: {e.erreur}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Form */}
