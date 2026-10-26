@@ -44,6 +44,7 @@ export default function Home() {
   const [categoryBanners, setCategoryBanners] = useState<CategoryBanner[]>([]);
   const [instagramPosts, setInstagramPosts] = useState<InstagramPost[]>([]);
   const [activeCategory, setActiveCategory] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -70,11 +71,17 @@ export default function Home() {
   }, []);
 
   const filteredProducts = Array.isArray(products)
-    ? activeCategory === 'all'
-      ? products
-      : activeCategory === 'nouveautes' || activeCategory === 'vente'
-        ? products
-        : products.filter((p) => p.category === categories.find(c => c.slug === activeCategory)?.label)
+    ? products.filter((p) => {
+        const matchesCategory =
+          activeCategory === 'all' ||
+          activeCategory === 'nouveautes' ||
+          activeCategory === 'vente' ||
+          p.category === categories.find((c) => c.slug === activeCategory)?.label;
+        const matchesSearch =
+          p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          p.category.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesCategory && matchesSearch;
+      })
     : [];
 
   if (loading) {
@@ -119,6 +126,30 @@ export default function Home() {
               {cat.label}
             </button>
           ))}
+        </div>
+      </section>
+
+      {/* Recherche Produits */}
+      <section className="py-8 px-6 max-w-7xl mx-auto">
+        <div className="flex flex-col sm:flex-row gap-4 items-end">
+          <div className="flex-1 relative">
+            <label className="block text-xs uppercase tracking-widest text-amber-200 mb-2">
+              Rechercher un produit
+            </label>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Nom du produit, catégorie..."
+              className="w-full bg-black border border-amber-900/40 text-xs px-4 py-3 text-stone-200 focus:outline-none focus:border-amber-500"
+            />
+          </div>
+          <button
+            onClick={() => setSearchQuery('')}
+            className="bg-amber-800 hover:bg-amber-700 text-amber-100 border border-amber-600/40 px-6 py-3 text-xs tracking-[0.25em] uppercase transition"
+          >
+            Réinitialiser
+          </button>
         </div>
       </section>
 
