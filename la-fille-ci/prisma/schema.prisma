@@ -78,6 +78,8 @@ model User {
   phone         String?
   password      String?
   isAdmin       Boolean        @default(false)
+  resetToken    String?
+  resetTokenExpires DateTime?
   createdAt     DateTime       @default(now())
   accounts      Account[]
   orders        Order[]

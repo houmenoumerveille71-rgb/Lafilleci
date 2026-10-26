@@ -125,6 +125,12 @@ export default function LoginPage() {
                 Créer un compte
               </Link>
             </p>
+            <p className="text-xs text-stone-400 mt-2">
+              Mot de passe oublié ?{' '}
+              <Link href="/mot-de-passe-oublie" className="text-amber-400 hover:text-amber-300 transition">
+                Réinitialiser
+              </Link>
+            </p>
           </div>
         </div>
       </section>
