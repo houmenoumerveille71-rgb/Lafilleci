@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import { useWishlist } from '@/context/WishlistContext';
@@ -51,7 +52,14 @@ export default function ProductCard({ name, price, image, stock = 0, description
        {/* Zone Image Produit */}
        <div className="relative aspect-w-3 aspect-h-4 bg-stone-900 border border-amber-900/20 mb-4 overflow-hidden flex items-center justify-center text-stone-600 text-xs">
          {image ? (
-           <img src={image} alt={name} className="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+           <Image
+             src={image}
+             alt={name}
+             fill
+             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+             className="object-cover group-hover:scale-105 transition duration-500"
+             priority
+           />
          ) : (
            <span>[ Image {name} ]</span>
          )}
@@ -109,7 +117,14 @@ export default function ProductCard({ name, price, image, stock = 0, description
               {/* Image Produit */}
               <div className="aspect-square bg-stone-900 border-b md:border-b-0 md:border-r border-amber-900/20 flex items-center justify-center">
                 {image ? (
-                  <img src={image} alt={name} className="w-full h-full object-cover" />
+                  <Image
+                    src={image}
+                    alt={name}
+                    fill
+                    sizes="50vw"
+                    className="object-cover"
+                    priority
+                  />
                 ) : (
                   <span className="text-stone-600 text-sm">[ Image {name} ]</span>
                 )}
