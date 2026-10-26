@@ -38,7 +38,7 @@ export default function WishlistPage() {
             <p className="text-stone-400 text-sm mb-6">Votre liste d&apos;envies est vide.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {items.map((item) => (
               <div key={item.id} className="group relative flex flex-col">
                 <div className="relative aspect-3/4 bg-stone-900 border border-amber-900/20 mb-4 overflow-hidden flex items-center justify-center text-stone-600 text-xs">

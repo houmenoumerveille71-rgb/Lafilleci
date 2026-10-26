@@ -32,7 +32,7 @@ export default async function VentePage() {
             <p className="text-stone-400 text-sm">Aucune promotion en cours pour le moment.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {saleProducts.map((item) => (
               <ProductCard 
                 key={item.id} 

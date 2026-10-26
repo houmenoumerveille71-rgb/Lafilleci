@@ -67,7 +67,7 @@ export default async function CategoryPage({ params }: Props) {
              <p className="text-stone-400 text-sm">Aucun produit disponible dans cette catégorie pour le moment.</p>
            </div>
          ) : (
-           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
              {filteredProducts.map((item) => (
                <ProductCard 
                  key={item.id} 

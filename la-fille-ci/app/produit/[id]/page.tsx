@@ -339,7 +339,7 @@ export default async function ProductPage({ params }: Props) {
             </div>
 
             <div className="grid gap-6">
-              <div className="sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              <div className="grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {relatedProducts.map((item) => (
                   <ProductCard
                     key={item.id}
