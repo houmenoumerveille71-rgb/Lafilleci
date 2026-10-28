@@ -6,10 +6,11 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 // GET /api/reviews/[productId] - Récupérer les avis d'un produit
 export async function GET(
   request: Request,
-  { params }: { params: { productId: string } }
+  { params }: { params: Promise<{ productId: string }> }
 ) {
   try {
-    const productId = parseInt(params.productId);
+    const { productId: productIdStr } = await params;
+    const productId = parseInt(productIdStr);
 
     const reviews = await prisma.review.findMany({
       where: { productId, active: true },
@@ -43,7 +44,7 @@ export async function GET(
 // POST /api/reviews/[productId] - Créer un nouvel avis
 export async function POST(
   request: Request,
-  { params }: { params: { productId: string } }
+  { params }: { params: Promise<{ productId: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -52,7 +53,8 @@ export async function POST(
       return NextResponse.json({ error: 'Connexion requise' }, { status: 401 });
     }
 
-    const productId = parseInt(params.productId);
+    const { productId: productIdStr } = await params;
+    const productId = parseInt(productIdStr);
     const { rating, title, comment } = await request.json();
 
     if (!rating || rating < 1 || rating > 5) {
