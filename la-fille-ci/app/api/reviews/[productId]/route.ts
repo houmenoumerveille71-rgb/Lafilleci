@@ -61,12 +61,14 @@ export async function POST(
       return NextResponse.json({ error: 'Note invalide (1-5)' }, { status: 400 });
     }
 
+    const userId = session.user.id as number;
+
     // Vérifier que l'utilisateur n'a pas déjà donné un avis pour ce produit
     const existingReview = await prisma.review.findUnique({
       where: {
         productId_userId: {
           productId,
-          userId: session.user.id,
+          userId,
         },
       },
     });
@@ -78,7 +80,7 @@ export async function POST(
     const review = await prisma.review.create({
       data: {
         productId,
-        userId: session.user.id,
+        userId,
         rating,
         title: title || '',
         comment: comment || '',
