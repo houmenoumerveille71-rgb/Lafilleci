@@ -130,8 +130,8 @@ export default function Home() {
       </section>
 
       {/* Recherche Produits */}
-      <section className="py-8 px-6 max-w-7xl mx-auto">
-        <div className="flex flex-col sm:flex-row gap-4 items-end">
+      <section className="py-8 px-4 sm:px-6 max-w-7xl mx-auto">
+        <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-end">
           <div className="flex-1 relative">
             <label className="block text-xs uppercase tracking-widest text-amber-200 mb-2">
               Rechercher un produit
@@ -146,7 +146,7 @@ export default function Home() {
           </div>
           <button
             onClick={() => setSearchQuery('')}
-            className="bg-amber-800 hover:bg-amber-700 text-amber-100 border border-amber-600/40 px-6 py-3 text-xs tracking-[0.25em] uppercase transition"
+            className="w-full sm:w-auto bg-amber-800 hover:bg-amber-700 text-amber-100 border border-amber-600/40 px-6 py-3 text-xs tracking-[0.25em] uppercase transition"
           >
             Réinitialiser
           </button>
