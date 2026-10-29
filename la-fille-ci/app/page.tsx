@@ -156,7 +156,7 @@ export default function Home() {
 {/* Hero Banners */}
        <section className="grid gap-4 p-2 bg-stone-900/40">
          {/* Mobile: 1 column, Tablet and up: 3 columns */}
-         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
            {banners.length > 0 ? (
              banners.map((banner) => (
                <div key={banner.id} className="relative aspect-[4/3] min-h-[200px] sm:min-h-[250px] lg:min-h-[300px] border border-amber-900/20 flex flex-col items-center justify-center text-center p-6 overflow-hidden group">
