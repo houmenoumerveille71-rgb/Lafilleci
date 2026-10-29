@@ -301,9 +301,9 @@ export default function AdminProduitsPage() {
                       setFormData({ ...formData, image: data.imageUrl });
                     }
                   }}
-                  className="w-full bg-black border border-amber-900/40 text-xs px-4 py-2 text-stone-200 focus:outline-none focus:border-amber-500"
-                />
-                {formData.image && (
+                   className="w-full bg-black border border-amber-900/40 text-xs px-4 py-2 text-stone-200 focus:outline-none focus:border-amber-500 cursor-pointer"
+                 />
+                 {formData.image && (
                   <div className="mt-2">
                     <img src={formData.image} alt="Preview" className="w-32 h-32 object-cover border border-amber-900/40" />
                   </div>
