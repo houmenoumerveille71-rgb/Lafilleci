@@ -31,7 +31,7 @@ interface InstagramPost {
 }
 
 const categories = [
-  { slug: 'nouveautes', label: 'Nouveautés' },
+  { slug: 'nouveautes', label: 'NouveautÃ©s' },
   { slug: 'sortie', label: 'Habits de Sortie' },
   { slug: 'sport', label: 'Tenues de Sport' },
   { slug: 'crochet', label: 'Tenues en Crochet' },
@@ -140,7 +140,7 @@ export default function Home() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Nom du produit, catégorie..."
+              placeholder="Nom du produit, catÃ©gorie..."
               className="w-full bg-black border border-amber-900/40 text-xs px-4 py-3 text-stone-200 focus:outline-none focus:border-amber-500"
             />
           </div>
@@ -148,7 +148,7 @@ export default function Home() {
             onClick={() => setSearchQuery('')}
             className="w-full sm:w-auto bg-amber-800 hover:bg-amber-700 text-amber-100 border border-amber-600/40 px-6 py-3 text-xs tracking-[0.25em] uppercase transition"
           >
-            Réinitialiser
+            RÃ©initialiser
           </button>
         </div>
       </section>
@@ -181,13 +181,13 @@ export default function Home() {
            ) : (
              <>
                <div className="relative aspect-4/3 min-h-50 sm:min-h-62.5 lg:min-h-75 bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
-                 [ Aucune bannière ]
+                 [ Aucune banniÃ¨re ]
                </div>
                <div className="relative aspect-4/3 min-h-50 sm:min-h-62.5 lg:min-h-75 bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
-                 [ Aucune bannière ]
+                 [ Aucune banniÃ¨re ]
                </div>
                <div className="relative aspect-4/3 min-h-50 sm:min-h-62.5 lg:min-h-75 bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
-                 [ Aucune bannière ]
+                 [ Aucune banniÃ¨re ]
                </div>
              </>
            )}
@@ -201,14 +201,14 @@ export default function Home() {
         </button>
       </div>
 
-      {/* Section Nouveautés */}
+      {/* Section NouveautÃ©s */}
       <section className="py-16 px-6 max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <span className="text-[10px] tracking-[0.3em] uppercase text-amber-500/80">
-            {activeCategory === 'all' ? 'Nouveautés' : categories.find(c => c.slug === activeCategory)?.label || 'Collection'}
+            {activeCategory === 'all' ? 'NouveautÃ©s' : categories.find(c => c.slug === activeCategory)?.label || 'Collection'}
           </span>
           <h2 className="text-3xl md:text-4xl font-serif tracking-widest text-amber-100 uppercase mt-1">
-            {activeCategory === 'all' ? 'Nouveautés' : categories.find(c => c.slug === activeCategory)?.label || 'Collection'}
+            {activeCategory === 'all' ? 'NouveautÃ©s' : categories.find(c => c.slug === activeCategory)?.label || 'Collection'}
           </h2>
           {activeCategory !== 'all' && (
             <h3 className="text-sm font-serif tracking-wider text-stone-400 uppercase mt-4 text-left border-b border-amber-900/20 pb-2">
@@ -233,14 +233,14 @@ export default function Home() {
          </div>
       </section>
 
-      {/* Collections en Vedette / Grille Catégories */}
+      {/* Collections en Vedette / Grille CatÃ©gories */}
       <section className="py-16 px-6 max-w-7xl mx-auto border-t border-amber-900/20">
         <div className="mb-8">
           <span className="text-[10px] tracking-[0.3em] uppercase text-amber-500/80 block">
             Collections en Vedette
           </span>
           <h2 className="text-2xl font-serif tracking-wider text-amber-100 uppercase">
-            Explorer par Catégorie
+            Explorer par CatÃ©gorie
           </h2>
         </div>
 
@@ -268,7 +268,7 @@ export default function Home() {
                        Ce que disent nos clients
                      </p>
                      <h3 className="text-base sm:text-lg font-serif tracking-widest text-amber-100 uppercase mb-4">
-                       Vêtements de Sport
+                       VÃªtements de Sport
                      </h3>
                      <blockquote className="text-xs sm:text-sm italic text-stone-400 mb-3 font-light">
                        &ldquo;J&rsquo;adore la coupe et la qualit&eacute;, une vraie touche d&rsquo;&eacute;l&eacute;gance au quotidien.&rdquo;
