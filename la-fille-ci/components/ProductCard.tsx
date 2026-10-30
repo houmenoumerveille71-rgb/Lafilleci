@@ -170,12 +170,14 @@ export default function ProductCard({ name, price, image, stock = 0, description
                >
                  {isOutOfStock ? 'Indisponible' : 'Ajouter au Panier'}
                </button>
-               <button 
-                 onClick={handleWishlistToggle}
-                 className={`w-full ${inWishlist ? 'bg-amber-900/40 text-amber-100 border border-amber-600/40' : 'bg-transparent text-stone-300 border border-stone-700 hover:border-amber-500 hover:text-amber-300'} py-3 text-xs tracking-[0.25em] uppercase transition`}
-               >
-                 {inWishlist ? 'Retirer des Favoris' : 'Ajouter aux Favoris'}
-               </button>
+                <a
+                  href={`https://wa.me/22900000000?text=${encodeURIComponent(`Bonjour, je souhaite commander ${name} (${price})`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full block text-center bg-green-700 hover:bg-green-600 text-white py-3 text-xs tracking-[0.25em] uppercase transition"
+                >
+                  Commander via WhatsApp
+                </a>
              </div>
            </div>
             </div>
