@@ -1,8 +1,12 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import prisma from '@/lib/prisma';
+import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Link from 'next/link';
+import prisma from '@/lib/prisma';
 import ProfileForm from '@/components/ProfileForm';
+import ChangePasswordForm from '@/components/ChangePasswordForm';
+import DeleteAccountButton from '@/components/DeleteAccountButton';
 
 export default async function ComptePage() {
   const session = (await getServerSession(authOptions as any)) as {
@@ -10,14 +14,7 @@ export default async function ComptePage() {
   } | null;
 
   if (!session) {
-  const orders = await prisma.order.findMany({
-    where: { userId: Number(session.user?.id) },
-    orderBy: { createdAt: 'desc' },
-    take: 5,
-  });
-  const orderCount = await prisma.order.count({ where: { userId: Number(session.user?.id) } });
-
-  return (
+    return (
       <div className="min-h-screen bg-black text-amber-50 font-sans selection:bg-amber-900 selection:text-white">
         <Header />
         <section className="py-16 px-6 max-w-3xl mx-auto text-center">
@@ -25,7 +22,7 @@ export default async function ComptePage() {
             Accès restreint
           </h2>
           <p className="text-stone-400 mb-8">Vous devez être connecté pour accéder à cette page.</p>
-          <Link 
+          <Link
             href="/login"
             className="inline-block bg-amber-800/80 hover:bg-amber-700 text-amber-100 border border-amber-600/40 px-10 py-2.5 text-xs tracking-[0.25em] uppercase transition"
           >
@@ -37,11 +34,16 @@ export default async function ComptePage() {
     );
   }
 
+  const orders = await prisma.order.findMany({
+    where: { userId: Number(session.user?.id) },
+    orderBy: { createdAt: 'desc' },
+    take: 5,
+  });
+  const orderCount = await prisma.order.count({ where: { userId: Number(session.user?.id) } });
+
   return (
     <div className="min-h-screen bg-black text-amber-50 font-sans selection:bg-amber-900 selection:text-white">
-      
       <Header />
-
       <section className="py-16 px-6 max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <span className="text-[10px] tracking-[0.3em] uppercase text-amber-500/80">
@@ -55,6 +57,7 @@ export default async function ComptePage() {
         <div className="max-w-4xl mx-auto">
           <div className="bg-stone-950 border border-amber-900/20 p-8 mb-8">
             <h3 className="text-lg font-serif tracking-widest text-amber-100 uppercase mb-4">Tableau de bord</h3>
+            <p className="text-sm text-stone-300 mb-2">Commandes passées : {orderCount}</p>
             <p className="text-sm text-stone-300 mb-2">Points de fidélité : 0</p>
             <p className="text-sm text-stone-300 mb-2">Coupons disponibles : aucun</p>
             <h4 className="text-sm font-serif tracking-wider text-amber-100 uppercase mt-4 mb-2">Dernières commandes</h4>
@@ -63,8 +66,13 @@ export default async function ComptePage() {
                 <li key={o.id}>{o.orderNumber || `#${o.id}`} - {o.total}€ - {o.status}</li>
               ))}
             </ul>
-           </div>
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          </div>
+
+          <div className="bg-stone-950 border border-amber-900/20 p-8 mb-8">
+            <h3 className="text-lg font-serif tracking-widest text-amber-100 uppercase mb-6">
+              Informations Personnelles
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-xs uppercase tracking-widest text-amber-200 mb-2">
                   Prénom
@@ -87,6 +95,8 @@ export default async function ComptePage() {
           </div>
 
           <ProfileForm firstName={session.user?.firstName || ''} lastName={session.user?.lastName || ''} phone="" />
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <Link href="/commandes" className="bg-stone-950 border border-amber-900/20 p-6 hover:border-amber-500 transition group">
               <h4 className="text-sm font-serif tracking-wider text-amber-100 uppercase mb-2 group-hover:text-amber-300 transition">
                 Historique des Commandes
@@ -107,15 +117,16 @@ export default async function ComptePage() {
               </h4>
               <p className="text-xs text-stone-400">Découvrir la collection</p>
             </Link>
+          </div>
+
           <ChangePasswordForm />
+
           <div className="mt-8 text-center">
             <DeleteAccountButton />
           </div>
         </div>
       </section>
-
       <Footer />
-
     </div>
   );
 }
