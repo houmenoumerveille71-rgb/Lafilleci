@@ -8,7 +8,7 @@ import { useWishlist } from '@/context/WishlistContext';
 import type { Product } from '@/lib/products';
 
 interface ProductCardProps {
-  id: number;
+  id?: number;
   name: string;
   price: string;
   image: string;
@@ -75,7 +75,7 @@ export default function ProductCard({
     <>
       <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-amber-500/40 bg-black text-white shadow-lg shadow-black/30 transition duration-300 hover:border-amber-400">
         {/* Image principale */}
-        <div className="relative aspect-[4/5] overflow-hidden bg-stone-900">
+        <div className="relative aspect-4/5 overflow-hidden bg-stone-900">
           {productImages.length > 0 ? (
             <Image
               src={productImages[0]}
@@ -190,7 +190,7 @@ export default function ProductCard({
             <div className="grid grid-cols-1 md:grid-cols-2">
               {/* Galerie */}
               <div>
-                <div className="relative aspect-[4/5] bg-stone-900">
+                <div className="relative aspect-4/5 bg-stone-900">
                   {productImages.length > 0 ? (
                     <Image
                       src={productImages[activeImage] || productImages[0]}
