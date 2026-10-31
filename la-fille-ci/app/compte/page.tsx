@@ -63,9 +63,8 @@ export default async function ComptePage() {
                 <li key={o.id}>{o.orderNumber || `#${o.id}`} - {o.total}€ - {o.status}</li>
               ))}
             </ul>
-          </div>
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+           </div>
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-xs uppercase tracking-widest text-amber-200 mb-2">
                   Prénom
