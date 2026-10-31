@@ -19,7 +19,7 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({
-  id,
+  id = 0,
   name,
   price,
   image,
@@ -35,7 +35,7 @@ export default function ProductCard({
   const [activeImage, setActiveImage] = useState(0);
 
   const product: Product = {
-  id = 0,
+    id: id || 0,
     name,
     price,
     category,
