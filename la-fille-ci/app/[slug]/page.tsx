@@ -69,9 +69,10 @@ export default async function CategoryPage({ params }: Props) {
          ) : (
            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
              {filteredProducts.map((item) => (
-               <ProductCard 
-                 key={item.id} 
-                 name={item.name} 
+                <ProductCard
+                  key={item.id}
+                  id={item.id}
+                  name={item.name}
                  price={item.price} 
                  image={item.image}
                  stock={item.stock}
