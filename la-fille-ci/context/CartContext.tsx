@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useCallback, useRef, ReactNode } from 'react';
+import { createContext, useContext, useState, useCallback, useRef, ReactNode, useEffect } from 'react';
 import { Product } from '@/lib/products';
 
 interface CartItem extends Product {
@@ -30,6 +30,19 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [notifications, setNotifications] = useState<CartNotification[]>([]);
   const notificationIdRef = useRef(0);
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('cart');
+      if (stored) setItems(JSON.parse(stored));
+    } catch {}
+  }, []);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('cart', JSON.stringify(items));
+    } catch {}
+  }, [items]);
 
   const addToCart = useCallback((product: Product) => {
     setItems((prev) => {
