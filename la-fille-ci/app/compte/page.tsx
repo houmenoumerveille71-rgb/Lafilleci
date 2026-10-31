@@ -2,7 +2,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import DeleteAccountButton from '@/components/DeleteAccountButton';
+import ChangePasswordForm from '@/components/ChangePasswordForm';
 
 export default async function ComptePage() {
   const session = (await getServerSession(authOptions as any)) as {
@@ -93,6 +93,7 @@ export default async function ComptePage() {
               </h4>
               <p className="text-xs text-stone-400">Découvrir la collection</p>
             </Link>
+          <ChangePasswordForm />
           <div className="mt-8 text-center">
             <DeleteAccountButton />
           </div>
