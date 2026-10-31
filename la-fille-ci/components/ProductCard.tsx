@@ -35,7 +35,7 @@ export default function ProductCard({
   const [activeImage, setActiveImage] = useState(0);
 
   const product: Product = {
-    id,
+  id = 0,
     name,
     price,
     category,
