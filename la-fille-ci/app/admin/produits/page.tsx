@@ -467,9 +467,13 @@ export default function AdminProduitsPage() {
                 <td className="px-6 py-4 text-stone-400">{product.category}</td>
                 <td className="px-6 py-4 text-amber-200">{product.price}</td>
                 <td className="px-6 py-4 text-stone-300">{product.stock ?? 0}</td>
-                <td className="px-6 py-4 text-stone-300">
-                  {product.images?.length || (product.image ? 1 : 0)}
-                </td>
+                 <td className="px-6 py-4 text-stone-300">
+                   {product.image ? (
+                     <img src={product.image} alt={product.name} className="w-12 h-12 object-cover" />
+                   ) : (
+                     '-'
+                   )}
+                 </td>
                 <td className="px-6 py-4">
                   <div className="flex gap-3">
                     <button
