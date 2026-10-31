@@ -37,8 +37,8 @@ export default async function AdminLayout({
 
   return (
     <div className="min-h-screen bg-stone-950 text-stone-200">
-      <div className="flex">
-        <aside className="w-64 bg-stone-900 border-r border-amber-900/20 min-h-screen">
+      <div className="flex flex-col md:flex-row">
+        <aside className="w-full md:w-64 bg-stone-900 border-b md:border-r border-amber-900/20 md:min-h-screen">
           <div className="p-6">
             <Link href="/admin/dashboard" className="inline-block">
               <h2 className="text-xl font-serif tracking-wider text-amber-100 uppercase hover:text-amber-300 transition">
@@ -101,7 +101,7 @@ export default async function AdminLayout({
           </nav>
         </aside>
 
-        <main className="flex-1 p-8">{children}</main>
+        <main className="flex-1 p-4 md:p-8">{children}</main>
       </div>
     </div>
   );

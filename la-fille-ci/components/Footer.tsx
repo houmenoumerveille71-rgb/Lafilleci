@@ -54,8 +54,8 @@ export default function Footer() {
           <h4 className="text-amber-200 uppercase tracking-widest mb-3 text-[11px]">Contact</h4>
           <ul className="space-y-2 text-stone-500">
             <li>Cotonou, Bénin</li>
-            <li><a href="tel:+229 0192720562" className="hover:text-stone-300">+229 00 00 00 00</a></li>
-            <li><a href="mailto:contact@lafille-ci.com" className="hover:text-stone-300">contact@lafille-ci.com</a></li>
+            <li><a href="tel:+2290192720562" className="hover:text-stone-300">+229 01 92 72 05 62</a></li>
+            <li><a href="mailto:francinehoumenou@gmail.com" className="hover:text-stone-300">francinehoumenou@gmail.com</a></li>
             <li>Lun - Sam : 9h - 21h</li>
           </ul>
         </div>

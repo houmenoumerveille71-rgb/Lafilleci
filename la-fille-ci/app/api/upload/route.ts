@@ -1,6 +1,7 @@
+
 import { NextResponse } from 'next/server';
 import { v2 as cloudinary } from 'cloudinary';
-import { UploadApiResponse } from 'cloudinary';
+import type { UploadApiResponse } from 'cloudinary';
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -10,32 +11,65 @@ cloudinary.config({
 
 export const runtime = 'nodejs';
 
+async function uploadImage(file: File): Promise<string> {
+  if (!file.type.startsWith('image/')) {
+    throw new Error(`Le fichier "${file.name}" n'est pas une image.`);
+  }
+
+  const buffer = Buffer.from(await file.arrayBuffer());
+
+  const result: UploadApiResponse = await new Promise(
+    (resolve, reject) => {
+      cloudinary.uploader
+        .upload_stream(
+          { resource_type: 'image', folder: 'lafille-ci' },
+          (error, result) => {
+            if (error) reject(error);
+            else if (!result) {
+              reject(new Error('Cloudinary n’a retourné aucun résultat.'));
+            } else {
+              resolve(result);
+            }
+          }
+        )
+        .end(buffer);
+    }
+  );
+
+  return result.secure_url;
+}
+
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
-    const file = formData.get('image') as File | null;
 
-    if (!file) {
-      return NextResponse.json({ error: 'No image uploaded' }, { status: 400 });
+    const files = [
+      ...formData.getAll('images'),
+      ...formData.getAll('image'),
+    ].filter((item): item is File => item instanceof File);
+
+    if (files.length === 0) {
+      return NextResponse.json(
+        { error: 'Sélectionne au moins une image.' },
+        { status: 400 }
+      );
     }
 
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+    const imageUrls = await Promise.all(files.map(uploadImage));
 
-    const result: UploadApiResponse = await new Promise((resolve, reject) => {
-      cloudinary.uploader.upload_stream(
-        { resource_type: 'image', folder: 'lafille-ci' },
-        (error, result) => {
-          if (error) reject(error);
-          else if (!result) reject(new Error('No result from Cloudinary'));
-          else resolve(result);
-        }
-      ).end(buffer);
-    });
-
-    return NextResponse.json({ imageUrl: result.secure_url }, { status: 201 });
+    return NextResponse.json(
+      {
+        imageUrl: imageUrls[0],
+        imageUrls,
+      },
+      { status: 201 }
+    );
   } catch (error) {
-    console.error('Failed to upload image:', error);
-    return NextResponse.json({ error: 'Failed to upload image' }, { status: 500 });
+    console.error('Failed to upload images:', error);
+
+    return NextResponse.json(
+      { error: 'Échec du téléversement des images.' },
+      { status: 500 }
+    );
   }
 }
