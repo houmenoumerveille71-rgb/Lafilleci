@@ -1,6 +1,6 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import Header from '@/components/Header';
+import prisma from '@/lib/prisma';
 import Footer from '@/components/Footer';
 import ProfileForm from '@/components/ProfileForm';
 
@@ -10,7 +10,14 @@ export default async function ComptePage() {
   } | null;
 
   if (!session) {
-    return (
+  const orders = await prisma.order.findMany({
+    where: { userId: Number(session.user?.id) },
+    orderBy: { createdAt: 'desc' },
+    take: 5,
+  });
+  const orderCount = await prisma.order.count({ where: { userId: Number(session.user?.id) } });
+
+  return (
       <div className="min-h-screen bg-black text-amber-50 font-sans selection:bg-amber-900 selection:text-white">
         <Header />
         <section className="py-16 px-6 max-w-3xl mx-auto text-center">
@@ -47,8 +54,15 @@ export default async function ComptePage() {
 
         <div className="max-w-4xl mx-auto">
           <div className="bg-stone-950 border border-amber-900/20 p-8 mb-8">
-            <h3 className="text-lg font-serif tracking-widest text-amber-100 uppercase mb-6">
-              Informations Personnelles
+            <h3 className="text-lg font-serif tracking-widest text-amber-100 uppercase mb-4">Tableau de bord</h3>
+            <p className="text-sm text-stone-300 mb-2">Commandes passées : {orderCount}</p>
+            <h4 className="text-sm font-serif tracking-wider text-amber-100 uppercase mt-4 mb-2">Dernières commandes</h4>
+            <ul className="space-y-2 text-stone-400 text-xs">
+              {orders.map((o) => (
+                <li key={o.id}>{o.orderNumber || `#${o.id}`} - {o.total}€ - {o.status}</li>
+              ))}
+            </ul>
+          </div>
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
