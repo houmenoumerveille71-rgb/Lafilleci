@@ -279,12 +279,12 @@ export default function ProductCard({
                   </button>
 
                   {whatsappNumber && (
-                    <a
-                      href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block w-full rounded-lg border border-amber-400 px-4 py-3 text-center text-sm font-semibold text-amber-200 transition hover:bg-amber-400 hover:text-black"
-                    >
+                <a
+                  href={`https://wa.me/2290192720562?text=${encodeURIComponent(`Bonjour, je souhaite commander ${name} (${price})\nImage: ${image}`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full block text-center bg-green-700 hover:bg-green-600 text-white py-3 text-xs tracking-[0.25em] uppercase transition"
+                >
                       Commander sur WhatsApp
                     </a>
                   )}
