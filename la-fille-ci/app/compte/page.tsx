@@ -55,7 +55,8 @@ export default async function ComptePage() {
         <div className="max-w-4xl mx-auto">
           <div className="bg-stone-950 border border-amber-900/20 p-8 mb-8">
             <h3 className="text-lg font-serif tracking-widest text-amber-100 uppercase mb-4">Tableau de bord</h3>
-            <p className="text-sm text-stone-300 mb-2">Commandes passées : {orderCount}</p>
+            <p className="text-sm text-stone-300 mb-2">Points de fidélité : 0</p>
+            <p className="text-sm text-stone-300 mb-2">Coupons disponibles : aucun</p>
             <h4 className="text-sm font-serif tracking-wider text-amber-100 uppercase mt-4 mb-2">Dernières commandes</h4>
             <ul className="space-y-2 text-stone-400 text-xs">
               {orders.map((o) => (
