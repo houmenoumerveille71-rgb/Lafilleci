@@ -1,36 +1,61 @@
+
 'use client';
 
 import Image from 'next/image';
 import { useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import { useWishlist } from '@/context/WishlistContext';
-import { Product } from '@/lib/products';
+import type { Product } from '@/lib/products';
 
 interface ProductCardProps {
+  id: number;
   name: string;
   price: string;
   image: string;
+  images?: string[];
   stock?: number;
   description?: string;
   category?: string;
 }
 
-export default function ProductCard({ name, price, image, stock = 0, description = '', category = '' }: ProductCardProps) {
+export default function ProductCard({
+  id,
+  name,
+  price,
+  image,
+  images = [],
+  stock = 0,
+  description = '',
+  category = '',
+}: ProductCardProps) {
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeImage, setActiveImage] = useState(0);
 
   const product: Product = {
-    id: 0,
+    id,
     name,
     price,
-    category: category || '',
+    category,
     image,
+    images,
     stock,
+    description,
   };
 
-  const inWishlist = isInWishlist(0);
-  const isOutOfStock = stock === 0;
+  const productImages = [...new Set([image, ...images].filter(Boolean))];
+  const inWishlist = isInWishlist(id);
+  const isOutOfStock = stock <= 0;
+
+  const whatsappNumber = (
+    process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || ''
+  ).replace(/\D/g, '');
+
+  const whatsappMessage = encodeURIComponent(
+    `Bonjour, je souhaite commander ${name} au prix de ${price}.`
+  );
 
   const handleAddToCart = () => {
     if (!isOutOfStock) {
@@ -40,150 +65,235 @@ export default function ProductCard({ name, price, image, stock = 0, description
 
   const handleWishlistToggle = () => {
     if (inWishlist) {
-      removeFromWishlist(0);
+      removeFromWishlist(id);
     } else {
       addToWishlist(product);
     }
   };
 
   return (
-    <div className="group relative flex flex-col">
-      
-       {/* Zone Image Produit */}
-       <div className="relative aspect-w-3 aspect-h-4 bg-stone-900 border border-amber-900/20 mb-4 overflow-hidden flex items-center justify-center text-stone-600 text-xs">
-         {image ? (
-           <Image
-             src={image}
-             alt={name}
-             fill
-             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-             className="object-cover group-hover:scale-105 transition duration-500"
-             priority
-           />
-         ) : (
-           <span>[ Image {name} ]</span>
-         )}
-         
-         {/* Bouton Favoris */}
-         <button 
-           onClick={handleWishlistToggle}
-           className={`absolute top-3 right-3 z-10 transition ${
-             inWishlist ? 'text-amber-400' : 'text-stone-400 hover:text-amber-300'
-           }`}
-           aria-label="Ajouter aux favoris"
-         >
-           <svg xmlns="http://www.w3.org/2000/svg" fill={inWishlist ? "currentColor" : "none"} viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-             <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.575-4.688-4.575-1.39 0-2.64.675-3.312 1.722-.672-1.047-1.922-1.722-3.312-1.722C7.099 3.675 5 5.765 5 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-           </svg>
-         </button>
-       </div>
+    <>
+      <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-amber-500/40 bg-black text-white shadow-lg shadow-black/30 transition duration-300 hover:border-amber-400">
+        {/* Image principale */}
+        <div className="relative aspect-[4/5] overflow-hidden bg-stone-900">
+          {productImages.length > 0 ? (
+            <Image
+              src={productImages[0]}
+              alt={name}
+              fill
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              className="object-cover transition duration-500 group-hover:scale-105"
+            />
+          ) : (
+            <div className="flex h-full items-center justify-center text-sm text-stone-400">
+              Image non disponible
+            </div>
+          )}
 
-       {/* Détails Produit */}
-       <h4 className="text-xs sm:text-md font-serif tracking-wider text-amber-100/90 mb-1">
-         {name}
-       </h4>
-       <p className="text-xs sm:text-md font-mono text-amber-400/80 mb-1">
-         {price}
-       </p>
-       {stock !== undefined && (
-         <p className={`text-[10px] sm:text-xs uppercase tracking-wider mb-4 ${isOutOfStock ? 'text-red-400' : 'text-stone-500'}`}>
-           {isOutOfStock ? 'Rupture de stock' : `Stock: ${stock}`}
-         </p>
-       )}
+          {/* Catégorie réelle */}
+          {category && (
+            <span className="absolute bottom-3 left-3 max-w-[75%] truncate rounded-full bg-black/75 px-3 py-1 text-xs text-amber-300 backdrop-blur">
+              {category}
+            </span>
+          )}
 
-       {/* Boutons d'Action */}
-       <div className="grid grid-cols-2 gap-2 mt-auto">
-         <button 
-           onClick={() => setIsModalOpen(true)}
-           className="border border-amber-900/40 text-[9px] sm:text-[10px] uppercase tracking-wider py-1.5 sm:py-2 text-stone-300 hover:border-amber-500 hover:text-white transition"
-         >
-           Aperçu Rapide
-         </button>
-         <button 
-           onClick={handleAddToCart}
-           disabled={isOutOfStock}
-           className={`${isOutOfStock ? 'bg-stone-800 text-stone-500 cursor-not-allowed' : 'bg-stone-900 border border-amber-900/40 text-amber-200 hover:bg-amber-900/40'} text-[9px] sm:text-[10px] uppercase tracking-wider py-1.5 sm:py-2 transition`}
-         >
-           {isOutOfStock ? 'Indisponible' : 'Ajouter'}
-         </button>
-       </div>
+          {/* Favoris */}
+          <button
+            type="button"
+            onClick={handleWishlistToggle}
+            aria-label={
+              inWishlist
+                ? 'Retirer des favoris'
+                : 'Ajouter aux favoris'
+            }
+            aria-pressed={inWishlist}
+            className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full border border-amber-400/60 bg-black/80 text-2xl text-amber-300 transition hover:bg-amber-400 hover:text-black"
+          >
+            {inWishlist ? '♥' : '♡'}
+          </button>
 
-      {/* Modale Aperçu Rapide */}
+          {/* Indicateur des photos supplémentaires */}
+          {productImages.length > 1 && (
+            <span className="absolute bottom-3 right-3 rounded-full bg-black/80 px-3 py-1 text-xs text-white">
+              +{productImages.length - 1} photo(s)
+            </span>
+          )}
+        </div>
+
+        {/* Informations provenant du produit */}
+        <div className="flex flex-1 flex-col p-3 sm:p-4">
+          <h3 className="mb-2 line-clamp-2 min-h-10 font-serif text-sm font-semibold tracking-wide text-amber-50 sm:text-base">
+            {name}
+          </h3>
+
+          <p className="mb-3 text-lg font-bold text-amber-400 sm:text-xl">
+            {price}
+          </p>
+
+          <p
+            className={`mb-4 text-xs font-medium ${
+              isOutOfStock ? 'text-red-400' : 'text-stone-300'
+            }`}
+          >
+            {isOutOfStock
+              ? 'Rupture de stock'
+              : `Stock disponible : ${stock}`}
+          </p>
+
+          {/* Actions */}
+          <div className="mt-auto grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                setActiveImage(0);
+                setIsModalOpen(true);
+              }}
+              className="rounded-lg border border-amber-500/60 px-2 py-2 text-[10px] font-semibold uppercase text-amber-200 transition hover:bg-amber-500 hover:text-black sm:text-xs"
+            >
+              Aperçu
+            </button>
+
+            <button
+              type="button"
+              onClick={handleAddToCart}
+              disabled={isOutOfStock}
+              className="rounded-lg bg-amber-400 px-2 py-2 text-[10px] font-bold uppercase text-black transition hover:bg-amber-300 disabled:cursor-not-allowed disabled:bg-stone-700 disabled:text-stone-400 sm:text-xs"
+            >
+              {isOutOfStock ? 'Indisponible' : 'Ajouter'}
+            </button>
+          </div>
+        </div>
+      </article>
+
+      {/* Fenêtre d'aperçu */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80" onClick={() => setIsModalOpen(false)}>
-          <div className="bg-stone-950 border border-amber-900/20 max-w-3xl w-full max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/90 p-3 sm:p-6"
+          onClick={() => setIsModalOpen(false)}
+        >
+          <section
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Aperçu de ${name}`}
+            className="relative my-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-amber-500/50 bg-stone-950"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setIsModalOpen(false)}
+              aria-label="Fermer l'aperçu"
+              className="absolute right-3 top-3 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-amber-400 bg-black text-xl text-amber-300"
+            >
+              ×
+            </button>
+
             <div className="grid grid-cols-1 md:grid-cols-2">
-              
-              {/* Image Produit */}
-              <div className="aspect-square bg-stone-900 border-b md:border-b-0 md:border-r border-amber-900/20 flex items-center justify-center">
-                {image ? (
-                  <Image
-                    src={image}
-                    alt={name}
-                    fill
-                    sizes="50vw"
-                    className="object-cover"
-                    priority
-                  />
-                ) : (
-                  <span className="text-stone-600 text-sm">[ Image {name} ]</span>
+              {/* Galerie */}
+              <div>
+                <div className="relative aspect-[4/5] bg-stone-900">
+                  {productImages.length > 0 ? (
+                    <Image
+                      src={productImages[activeImage] || productImages[0]}
+                      alt={name}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-contain"
+                    />
+                  ) : (
+                    <div className="flex h-full items-center justify-center text-stone-400">
+                      Image non disponible
+                    </div>
+                  )}
+                </div>
+
+                {productImages.length > 1 && (
+                  <div className="flex gap-2 overflow-x-auto p-3">
+                    {productImages.map((src, index) => (
+                      <button
+                        key={`${src}-${index}`}
+                        type="button"
+                        onClick={() => setActiveImage(index)}
+                        aria-label={`Afficher la photo ${index + 1}`}
+                        aria-pressed={activeImage === index}
+                        className={`relative h-16 w-16 shrink-0 overflow-hidden rounded-lg border ${
+                          activeImage === index
+                            ? 'border-amber-400'
+                            : 'border-stone-700'
+                        }`}
+                      >
+                        <Image
+                          src={src}
+                          alt={`${name} ${index + 1}`}
+                          fill
+                          sizes="64px"
+                          className="object-cover"
+                        />
+                      </button>
+                    ))}
+                  </div>
                 )}
               </div>
 
-           {/* Détails Produit */}
-           <div className="p-6 sm:p-8 flex flex-col">
-             <div className="flex justify-between items-start mb-4">
-               <div>
-                 {category && (
-                   <p className="text-[10px] sm:text-xs uppercase tracking-widest text-amber-500/80 mb-2">{category}</p>
-                 )}
-                 <h3 className="text-xl sm:text-2xl font-serif tracking-widest text-amber-100 uppercase">{name}</h3>
-               </div>
-               <button 
-                 onClick={() => setIsModalOpen(false)}
-                 className="text-stone-400 hover:text-amber-100 transition"
-                 aria-label="Fermer"
-               >
-                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
-                 </svg>
-               </button>
-             </div>
+              {/* Détails */}
+              <div className="flex flex-col p-5 sm:p-8">
+                {category && (
+                  <p className="mb-3 text-xs uppercase tracking-[0.2em] text-amber-400">
+                    {category}
+                  </p>
+                )}
 
-             <p className="text-2xl sm:text-3xl font-mono text-amber-400 mb-4">{price}</p>
+                <h2 className="mb-4 pr-8 font-serif text-2xl font-bold uppercase tracking-wide text-amber-50 sm:text-3xl">
+                  {name}
+                </h2>
 
-             {description && (
-               <p className="text-sm text-stone-300 mb-6 leading-relaxed">{description}</p>
-             )}
+                <p className="mb-5 text-2xl font-bold text-amber-400 sm:text-3xl">
+                  {price}
+                </p>
 
-             {stock !== undefined && (
-               <p className={`text-xs uppercase tracking-wider mb-6 ${isOutOfStock ? 'text-red-400' : 'text-stone-500'}`}>
-                 {isOutOfStock ? 'Rupture de stock' : `Stock disponible: ${stock}`}
-               </p>
-             )}
+                {description && (
+                  <p className="mb-5 whitespace-pre-line text-sm leading-7 text-stone-300">
+                    {description}
+                  </p>
+                )}
 
-             <div className="mt-auto space-y-3">
-               <button 
-                 onClick={handleAddToCart}
-                 disabled={isOutOfStock}
-                 className={`w-full ${isOutOfStock ? 'bg-stone-800 text-stone-500 cursor-not-allowed' : 'bg-amber-800/80 hover:bg-amber-700 text-amber-100 border border-amber-600/40'} py-3 text-xs tracking-[0.25em] uppercase transition`}
-               >
-                 {isOutOfStock ? 'Indisponible' : 'Ajouter au Panier'}
-               </button>
-                <a
-                  href={`https://wa.me/22900000000?text=${encodeURIComponent(`Bonjour, je souhaite commander ${name} (${price})`)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full block text-center bg-green-700 hover:bg-green-600 text-white py-3 text-xs tracking-[0.25em] uppercase transition"
+                <p
+                  className={`mb-6 text-sm ${
+                    isOutOfStock ? 'text-red-400' : 'text-stone-300'
+                  }`}
                 >
-                  Commander via WhatsApp
-                </a>
-             </div>
-           </div>
+                  {isOutOfStock
+                    ? 'Rupture de stock'
+                    : `Stock disponible : ${stock}`}
+                </p>
+
+                <div className="mt-auto space-y-3">
+                  <button
+                    type="button"
+                    onClick={handleAddToCart}
+                    disabled={isOutOfStock}
+                    className="w-full rounded-lg bg-amber-400 px-4 py-3 text-sm font-bold uppercase tracking-wide text-black transition hover:bg-amber-300 disabled:cursor-not-allowed disabled:bg-stone-700 disabled:text-stone-400"
+                  >
+                    {isOutOfStock
+                      ? 'Indisponible'
+                      : 'Ajouter au panier'}
+                  </button>
+
+                  {whatsappNumber && (
+                    <a
+                      href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block w-full rounded-lg border border-amber-400 px-4 py-3 text-center text-sm font-semibold text-amber-200 transition hover:bg-amber-400 hover:text-black"
+                    >
+                      Commander sur WhatsApp
+                    </a>
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
+          </section>
         </div>
       )}
-    </div>
+    </>
   );
 }
