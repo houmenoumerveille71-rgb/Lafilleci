@@ -2,7 +2,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import ChangePasswordForm from '@/components/ChangePasswordForm';
+import ProfileForm from '@/components/ProfileForm';
 
 export default async function ComptePage() {
   const session = (await getServerSession(authOptions as any)) as {
@@ -72,7 +72,7 @@ export default async function ComptePage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <ProfileForm firstName={session.user?.firstName || ''} lastName={session.user?.lastName || ''} phone="" />
             <Link href="/commandes" className="bg-stone-950 border border-amber-900/20 p-6 hover:border-amber-500 transition group">
               <h4 className="text-sm font-serif tracking-wider text-amber-100 uppercase mb-2 group-hover:text-amber-300 transition">
                 Historique des Commandes
