@@ -104,6 +104,13 @@ export default async function ComptePage() {
               <p className="text-xs text-stone-400">Consultez vos achats passés</p>
             </Link>
 
+            <Link href="/panier" className="bg-stone-950 border border-amber-900/20 p-6 hover:border-amber-500 transition group">
+              <h4 className="text-sm font-serif tracking-wider text-amber-100 uppercase mb-2 group-hover:text-amber-300 transition">
+                Mon Panier
+              </h4>
+              <p className="text-xs text-stone-400">Vos articles sélectionnés</p>
+            </Link>
+
             <Link href="/wishlist" className="bg-stone-950 border border-amber-900/20 p-6 hover:border-amber-500 transition group">
               <h4 className="text-sm font-serif tracking-wider text-amber-100 uppercase mb-2 group-hover:text-amber-300 transition">
                 Ma Liste d&apos;Envies
