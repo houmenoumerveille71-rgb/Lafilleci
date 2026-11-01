@@ -218,7 +218,17 @@ export async function POST(request: Request) {
       data: { paymentIntent: stripeSession.id },
     });
 
-    // Envoyer l'email de confirmation avec lien de suivi
+    // Notifier l'admin
+    try {
+      await transporter.sendMail({
+        from: EMAIL_FROM,
+        to: 'francinehoumenou@gmail.com',
+        subject: `Nouvelle commande #${order.orderNumber || order.id}`,
+        html: `<p>Nouvelle commande de ${firstName} ${lastName} (${email}) pour ${total} FCFA.</p>`,
+      });
+    } catch (e) {
+      console.error('Admin notification error:', e);
+    }
     try {
       const trackingUrl = `${baseUrl}/commande/suivi`;
       await transporter.sendMail({
