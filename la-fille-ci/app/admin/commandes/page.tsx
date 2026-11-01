@@ -39,6 +39,9 @@ export default async function AdminCommandesPage() {
       <h1 className="text-3xl font-serif tracking-widest text-amber-100 uppercase mb-8">
         Gestion des Commandes
       </h1>
+      <a href="/api/admin/orders/export" className="inline-block mb-6 bg-amber-800/80 hover:bg-amber-700 text-amber-100 border border-amber-600/40 px-6 py-2 text-xs tracking-[0.25em] uppercase transition">
+        Exporter CSV
+      </a>
 
       <div className="bg-stone-900 border border-amber-900/20 overflow-hidden">
         <table className="w-full text-sm">
