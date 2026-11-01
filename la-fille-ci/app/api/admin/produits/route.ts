@@ -18,8 +18,9 @@ export async function GET() {
   }
 }
 
+import { transporter, EMAIL_FROM } from '@/lib/email';
+
 export async function POST(request: Request) {
-  // Garde-fou : la creation de produit est reservee aux administrateurs.
   const guard = await requireAdmin();
   if (guard) return guard;
 
@@ -35,6 +36,22 @@ export async function POST(request: Request) {
         stock: body.stock || 0,
       },
     });
+
+    const users = await prisma.user.findMany({ select: { email: true } });
+    for (const u of users) {
+      if (!u.email) continue;
+      try {
+        await transporter.sendMail({
+          from: EMAIL_FROM,
+          to: u.email,
+          subject: `Nouveau produit : ${product.name}`,
+          html: `<p>Un nouveau produit est disponible : ${product.name} (${product.price})</p>`,
+        });
+      } catch (e) {
+        console.error('Notify user error:', e);
+      }
+    }
+
     return NextResponse.json(product, { status: 201 });
   } catch (error) {
     console.error('Failed to create product:', error);
