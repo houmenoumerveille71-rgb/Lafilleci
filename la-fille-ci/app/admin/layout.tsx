@@ -84,10 +84,10 @@ export default async function AdminLayout({
             </Link>
 
             <Link
-              href="/admin/newsletter"
+              href="/admin/avis"
               className="block px-3 py-2 text-sm text-stone-300 hover:bg-stone-800 hover:text-amber-100 rounded transition"
             >
-              Newsletter
+              Avis
             </Link>
 
             <div className="border-t border-amber-900/20 pt-2 mt-2">
