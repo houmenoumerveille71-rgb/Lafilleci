@@ -35,6 +35,7 @@ export default async function ComptePage() {
   }
 
   const user = await prisma.user.findUnique({ where: { id: Number(session.user?.id) }, select: { image: true } });
+  const orders = await prisma.order.findMany({
     where: { userId: Number(session.user?.id) },
     orderBy: { createdAt: 'desc' },
     take: 5,
