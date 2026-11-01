@@ -201,15 +201,14 @@ export default function CheckoutPage() {
                     Contact
                   </h3>
                   <div className="space-y-4">
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full bg-black border border-amber-900/40 text-xs px-4 py-3 text-stone-200 focus:outline-none focus:border-amber-500"
-                    />
+                     <input
+                       type="email"
+                       name="email"
+                       placeholder="Email"
+                       value={formData.email}
+                       onChange={handleInputChange}
+                       className="w-full bg-black border border-amber-900/40 text-xs px-4 py-3 text-stone-200 focus:outline-none focus:border-amber-500"
+                     />
                     <input
                       type="tel"
                       name="phone"
@@ -237,44 +236,40 @@ export default function CheckoutPage() {
                         required
                         className="w-full bg-black border border-amber-900/40 text-xs px-4 py-3 text-stone-200 focus:outline-none focus:border-amber-500"
                       />
-                      <input
-                        type="text"
-                        name="lastName"
-                        placeholder="Nom"
-                        value={formData.lastName}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full bg-black border border-amber-900/40 text-xs px-4 py-3 text-stone-200 focus:outline-none focus:border-amber-500"
-                      />
+                       <input
+                         type="text"
+                         name="lastName"
+                         placeholder="Nom"
+                         value={formData.lastName}
+                         onChange={handleInputChange}
+                         className="w-full bg-black border border-amber-900/40 text-xs px-4 py-3 text-stone-200 focus:outline-none focus:border-amber-500"
+                       />
                     </div>
-                    <input
-                      type="text"
-                      name="address"
-                      placeholder="Adresse"
-                      value={formData.address}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full bg-black border border-amber-900/40 text-xs px-4 py-3 text-stone-200 focus:outline-none focus:border-amber-500"
-                    />
+                     <input
+                       type="text"
+                       name="address"
+                       placeholder="Adresse"
+                       value={formData.address}
+                       onChange={handleInputChange}
+                       className="w-full bg-black border border-amber-900/40 text-xs px-4 py-3 text-stone-200 focus:outline-none focus:border-amber-500"
+                     />
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                      <input
-                        type="text"
-                        name="city"
-                        placeholder="Ville"
-                        value={formData.city}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full bg-black border border-amber-900/40 text-xs px-4 py-3 text-stone-200 focus:outline-none focus:border-amber-500"
-                      />
-                      <input
-                        type="text"
-                        name="zipCode"
-                        placeholder="Code Postal"
-                        value={formData.zipCode}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full bg-black border border-amber-900/40 text-xs px-4 py-3 text-stone-200 focus:outline-none focus:border-amber-500"
-                      />
+                       <input
+                         type="text"
+                         name="city"
+                         placeholder="Ville"
+                         value={formData.city}
+                         onChange={handleInputChange}
+                         className="w-full bg-black border border-amber-900/40 text-xs px-4 py-3 text-stone-200 focus:outline-none focus:border-amber-500"
+                       />
+                       <input
+                         type="text"
+                         name="zipCode"
+                         placeholder="Code Postal"
+                         value={formData.zipCode}
+                         onChange={handleInputChange}
+                         className="w-full bg-black border border-amber-900/40 text-xs px-4 py-3 text-stone-200 focus:outline-none focus:border-amber-500"
+                       />
                       <select
                         name="country"
                         value={formData.country}
