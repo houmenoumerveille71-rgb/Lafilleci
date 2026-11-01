@@ -34,7 +34,11 @@ export default async function ComptePage() {
     );
   }
 
-  const user = await prisma.user.findUnique({ where: { id: Number(session.user?.id) }, select: { image: true } });
+  const user = await prisma.user.findUnique({ where: { id: Number(session.user?.id) }, select: { image: true, isAdmin: true } });
+  if (user?.isAdmin) {
+    const { redirect } = await import('next/navigation');
+    redirect('/admin/dashboard');
+  }
   const orders = await prisma.order.findMany({
     where: { userId: Number(session.user?.id) },
     orderBy: { createdAt: 'desc' },
