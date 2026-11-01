@@ -34,7 +34,7 @@ export default async function ComptePage() {
     );
   }
 
-  const orders = await prisma.order.findMany({
+  const user = await prisma.user.findUnique({ where: { id: Number(session.user?.id) }, select: { image: true } });
     where: { userId: Number(session.user?.id) },
     orderBy: { createdAt: 'desc' },
     take: 5,
@@ -72,6 +72,7 @@ export default async function ComptePage() {
             <h3 className="text-lg font-serif tracking-widest text-amber-100 uppercase mb-6">
               Informations Personnelles
             </h3>
+            {user?.image && <img src={user.image} alt="Profil" className="w-20 h-20 object-cover border border-amber-900/40 mb-4" />}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-xs uppercase tracking-widest text-amber-200 mb-2">
@@ -94,7 +95,7 @@ export default async function ComptePage() {
             </div>
           </div>
 
-          <ProfileForm firstName={session.user?.firstName || ''} lastName={session.user?.lastName || ''} phone="" />
+          <ProfileForm firstName={session.user?.firstName || ''} lastName={session.user?.lastName || ''} phone="" image={user?.image || ''} />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <Link href="/commandes" className="bg-stone-950 border border-amber-900/20 p-6 hover:border-amber-500 transition group">
