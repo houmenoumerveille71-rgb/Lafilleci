@@ -251,6 +251,7 @@ export default function CheckoutPage() {
                        placeholder="Adresse"
                        value={formData.address}
                        onChange={handleInputChange}
+                       required
                        className="w-full bg-black border border-amber-900/40 text-xs px-4 py-3 text-stone-200 focus:outline-none focus:border-amber-500"
                      />
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
