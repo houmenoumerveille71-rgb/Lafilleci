@@ -13,8 +13,15 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
 const FREE_SHIPPING_THRESHOLD = 500;
 const SHIPPING_COST = 25;
 
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+
 export async function POST(request: Request) {
   try {
+    const session = await getServerSession(authOptions as any);
+    if ((session as any)?.user && (session as any).user.isAdmin) {
+      return NextResponse.json({ error: 'Les comptes administrateurs ne peuvent pas passer commande' }, { status: 403 });
+    }
     const body = await request.json();
 
     const {
