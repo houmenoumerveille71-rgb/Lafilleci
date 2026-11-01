@@ -16,6 +16,7 @@ export default function RegisterPage() {
     confirmPassword: '',
     phone: '',
   });
+  const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 

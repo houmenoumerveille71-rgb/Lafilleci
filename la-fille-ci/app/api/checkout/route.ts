@@ -198,7 +198,7 @@ export async function POST(request: Request) {
     }
 
     // Creer la session Stripe.
-    const session = await stripe.checkout.sessions.create({
+    const stripeSession = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
@@ -215,7 +215,7 @@ export async function POST(request: Request) {
     // Enregistrer l'identifiant de la session.
     await prisma.order.update({
       where: { id: order.id },
-      data: { paymentIntent: session.id },
+      data: { paymentIntent: stripeSession.id },
     });
 
     // Envoyer l'email de confirmation avec lien de suivi
@@ -263,8 +263,8 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({
-      sessionId: session.id,
-      url: session.url,
+      sessionId: stripeSession.id,
+      url: stripeSession.url,
       subtotal,
       shipping,
       total,
