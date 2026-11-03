@@ -5,7 +5,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ProductCard from '@/components/ProductCard';
 import Link from 'next/link';
-import { getServerSession } from 'next-auth';
+import { useSession } from 'next-auth/react';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
 type Props = {
@@ -27,7 +27,10 @@ const renderStars = (rating: number) => {
 };
 
 export default function ClientProductPage({ id, product }: Props) {
+  const { data: session } = useSession();
   const productId = parseInt(id);
+  const [downloading, setDownloading] = useState(false);
+  const [downloadError, setDownloadError] = useState('');
 
   const [reviews, setReviews] = useState<any[]>([]);
   const [averageRating, setAverageRating] = useState(0);
@@ -38,7 +41,27 @@ export default function ClientProductPage({ id, product }: Props) {
   const [submitting, setSubmitting] = useState(false);
   const [reviewError, setReviewError] = useState('');
   const [reviewSuccess, setReviewSuccess] = useState('');
-  const [session, setSession] = useState<any>(null);
+  const handleDownload = async () => {
+    setDownloading(true);
+    setDownloadError('');
+    try {
+      const res = await fetch(`/api/products/${productId}/download?index=0`);
+      if (!res.ok) { setDownloadError('Téléchargement impossible'); return; }
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'produit_1';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch {
+      setDownloadError('Erreur réseau');
+    } finally {
+      setDownloading(false);
+    }
+  };
 
   useEffect(() => {
     getServerSession(authOptions).then((s) => setSession(s));
@@ -122,11 +145,24 @@ export default function ClientProductPage({ id, product }: Props) {
         <div className="grid gap-12">
           <div className="sm:grid-cols-2 lg:grid-cols-3">
             <div className="relative aspect-w-3 aspect-h-4 bg-stone-900 border border-amber-900/20 flex items-center justify-center text-stone-600 text-sm">
-              {product.image ? (
-                <img src={product.image} alt={product.name} className="w-full h-full object-contain" />
-              ) : (
-                <span>[ Image {product.name} ]</span>
-              )}
+               {product.image ? (
+                 <img src={product.image} alt={product.name} className="w-full h-full object-contain" />
+               ) : (
+                 <span>[ Image {product.name} ]</span>
+               )}
+               {isAuthenticated && product.image && (
+                 <div className="mt-4 text-center">
+                   <button
+                     type="button"
+                     onClick={handleDownload}
+                     disabled={downloading}
+                     className="rounded-lg border border-amber-500/60 px-3 py-2 text-xs font-semibold uppercase text-amber-200 transition hover:bg-amber-500 hover:text-black disabled:opacity-50"
+                   >
+                     {downloading ? 'Téléchargement...' : '⬇ Télécharger l\'image'}
+                   </button>
+                   {downloadError && <p className="mt-2 text-xs text-red-400">{downloadError}</p>}
+                 </div>
+               )}
             </div>
 
             <div className="flex flex-col justify-center">

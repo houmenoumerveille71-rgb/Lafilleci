@@ -2,7 +2,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useSession } from 'next-auth/react';
 import { useCart } from '@/context/CartContext';
 import { useWishlist } from '@/context/WishlistContext';
 import type { Product } from '@/lib/products';
@@ -31,8 +31,10 @@ export default function ProductCard({
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [activeImage, setActiveImage] = useState(0);
+  const { data: session } = useSession();
+  const isAuthenticated = !!session?.user;
+  const [downloading, setDownloading] = useState(false);
+  const [downloadError, setDownloadError] = useState('');
 
   const product: Product = {
     id: id || 0,
@@ -63,11 +65,29 @@ export default function ProductCard({
     }
   };
 
-  const handleWishlistToggle = () => {
-    if (inWishlist) {
-      removeFromWishlist(id);
-    } else {
-      addToWishlist(product);
+  const handleDownload = async () => {
+    if (!id || productImages.length === 0) return;
+    setDownloading(true);
+    setDownloadError('');
+    try {
+      const res = await fetch(`/api/products/${id}/download?index=${activeImage}`);
+      if (!res.ok) {
+        setDownloadError('Téléchargement impossible');
+        return;
+      }
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `produit_${activeImage + 1}`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch {
+      setDownloadError('Erreur réseau');
+    } finally {
+      setDownloading(false);
     }
   };
 
@@ -250,8 +270,19 @@ export default function ProductCard({
                   {price}
                 </p>
 
-                {description && (
-                  <p className="mb-5 whitespace-pre-line text-sm leading-7 text-stone-300">
+                {isAuthenticated && productImages.length > 0 && (
+                  <div className="mb-4">
+                    <button
+                      type="button"
+                      onClick={handleDownload}
+                      disabled={downloading}
+                      className="rounded-lg border border-amber-500/60 px-3 py-2 text-xs font-semibold uppercase text-amber-200 transition hover:bg-amber-500 hover:text-black disabled:opacity-50"
+                    >
+                      {downloading ? 'Téléchargement...' : '⬇ Télécharger l\'image'}
+                    </button>
+                    {downloadError && <p className="mt-2 text-xs text-red-400">{downloadError}</p>}
+                  </div>
+                )}
                     {description}
                   </p>
                 )}
