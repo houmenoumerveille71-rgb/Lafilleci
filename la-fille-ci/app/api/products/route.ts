@@ -13,9 +13,16 @@ type ProductInput = {
 };
 
 export const revalidate = 60;
+
+export async function GET(request: Request) {
   try {
+    const { searchParams } = new URL(request.url);
+    const page = Number(searchParams.get('page')) || 1;
+    const limit = Number(searchParams.get('limit')) || 0;
+
     const products = await prisma.product.findMany({
       orderBy: { createdAt: 'desc' },
+      ...(limit > 0 ? { skip: (page - 1) * limit, take: limit } : {}),
     });
 
     return NextResponse.json(products);
