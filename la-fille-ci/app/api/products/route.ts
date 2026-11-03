@@ -12,7 +12,7 @@ type ProductInput = {
   stock?: number | string;
 };
 
-export async function GET() {
+export const revalidate = 60;
   try {
     const products = await prisma.product.findMany({
       orderBy: { createdAt: 'desc' },
