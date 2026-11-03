@@ -2,6 +2,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useCart } from '@/context/CartContext';
 import { useWishlist } from '@/context/WishlistContext';
@@ -35,6 +36,8 @@ export default function ProductCard({
   const isAuthenticated = !!session?.user;
   const [downloading, setDownloading] = useState(false);
   const [downloadError, setDownloadError] = useState('');
+  const [activeImage, setActiveImage] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const product: Product = {
     id: id || 0,
@@ -62,6 +65,14 @@ export default function ProductCard({
   const handleAddToCart = () => {
     if (!isOutOfStock) {
       addToCart(product);
+    }
+  };
+
+  const handleWishlistToggle = () => {
+    if (inWishlist) {
+      removeFromWishlist(id);
+    } else {
+      addToWishlist(product);
     }
   };
 
@@ -283,6 +294,9 @@ export default function ProductCard({
                     {downloadError && <p className="mt-2 text-xs text-red-400">{downloadError}</p>}
                   </div>
                 )}
+
+                {description && (
+                  <p className="mb-5 whitespace-pre-line text-sm leading-7 text-stone-300">
                     {description}
                   </p>
                 )}

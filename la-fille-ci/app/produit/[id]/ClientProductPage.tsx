@@ -28,6 +28,7 @@ const renderStars = (rating: number) => {
 
 export default function ClientProductPage({ id, product }: Props) {
   const { data: session } = useSession();
+  const isAuthenticated = !!session?.user;
   const productId = parseInt(id);
   const [downloading, setDownloading] = useState(false);
   const [downloadError, setDownloadError] = useState('');
@@ -64,7 +65,6 @@ export default function ClientProductPage({ id, product }: Props) {
   };
 
   useEffect(() => {
-    getServerSession(authOptions).then((s) => setSession(s));
     fetchReviews();
   }, []);
 
@@ -78,7 +78,7 @@ export default function ClientProductPage({ id, product }: Props) {
         setTotalReviews(data.totalReviews || 0);
 
         if (session?.user && data.reviews) {
-          const existing = data.reviews.find((r: any) => r.userId === session.user.id);
+           const existing = data.reviews.find((r: any) => r.userId === (session?.user as any)?.id);
           if (existing) {
             setUserRating(existing.rating);
             setUserReview(existing.comment || '');
