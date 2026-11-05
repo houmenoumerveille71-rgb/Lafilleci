@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import { loadStripe } from '@stripe/stripe-js';
 import {
   Elements,
@@ -98,6 +100,8 @@ function CheckoutForm({ clientSecret, formData }: CheckoutFormProps) {
 }
 
 export default function CheckoutPage() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
   const { items, totalPrice } = useCart();
   const [clientSecret, setClientSecret] = useState('');
   const [formData, setFormData] = useState({
@@ -112,6 +116,12 @@ export default function CheckoutPage() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState(1);
+
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.replace(`/login?callbackUrl=${encodeURIComponent('/commande')}`);
+    }
+  }, [status, router]);
 
   const shippingCost = totalPrice > 500 ? 0 : 25;
   const finalTotal = totalPrice + shippingCost;
@@ -155,6 +165,14 @@ export default function CheckoutPage() {
       setIsLoading(false);
     }
   };
+
+  if (status === 'loading' || !session?.user) {
+    return (
+      <div className="min-h-screen bg-black text-amber-50 font-sans flex items-center justify-center">
+        <p className="text-stone-400 text-sm">Chargement...</p>
+      </div>
+    );
+  }
 
   if (items.length === 0) {
     return (

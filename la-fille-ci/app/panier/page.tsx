@@ -1,5 +1,8 @@
 'use client';
 
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
@@ -8,8 +11,24 @@ import { useToast } from '@/context/ToastContext';
 import CartItem from '@/components/CartItem';
 
 export default function PanierPage() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
   const { items, totalPrice, clearCart } = useCart();
   const { addToast } = useToast();
+
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.replace(`/login?callbackUrl=${encodeURIComponent('/panier')}`);
+    }
+  }, [status, router]);
+
+  if (status === 'loading' || !session?.user) {
+    return (
+      <div className="min-h-screen bg-black text-amber-50 font-sans flex items-center justify-center">
+        <p className="text-stone-400 text-sm">Chargement...</p>
+      </div>
+    );
+  }
 
   const handleClearCart = () => {
     clearCart();

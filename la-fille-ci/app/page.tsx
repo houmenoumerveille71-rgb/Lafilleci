@@ -72,14 +72,18 @@ export default function Home() {
 
   const filteredProducts = Array.isArray(products)
     ? products.filter((p) => {
+        const q = searchQuery.trim().toLowerCase();
         const matchesCategory =
+          !!q ||
           activeCategory === 'all' ||
           activeCategory === 'nouveautes' ||
           activeCategory === 'vente' ||
           p.category === categories.find((c) => c.slug === activeCategory)?.label;
+        const name = (p.name ?? '').toString().toLowerCase();
+        const category = (p.category ?? '').toString().toLowerCase();
+        const description = (p.description ?? '').toString().toLowerCase();
         const matchesSearch =
-          p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          p.category.toLowerCase().includes(searchQuery.toLowerCase());
+          !q || name.includes(q) || category.includes(q) || description.includes(q);
         return matchesCategory && matchesSearch;
       })
     : [];
@@ -145,7 +149,10 @@ export default function Home() {
             />
           </div>
           <button
-            onClick={() => setSearchQuery('')}
+            onClick={() => {
+              setSearchQuery('');
+              setActiveCategory('all');
+            }}
             className="w-full sm:w-auto bg-amber-800 hover:bg-amber-700 text-amber-100 border border-amber-600/40 px-6 py-3 text-xs tracking-[0.25em] uppercase transition"
           >
             Réinitialiser

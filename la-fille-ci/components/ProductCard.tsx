@@ -3,6 +3,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useCart } from '@/context/CartContext';
 import { useWishlist } from '@/context/WishlistContext';
@@ -34,6 +35,7 @@ export default function ProductCard({
 
   const { data: session } = useSession();
   const isAuthenticated = !!session?.user;
+  const router = useRouter();
   const [downloading, setDownloading] = useState(false);
   const [downloadError, setDownloadError] = useState('');
   const [activeImage, setActiveImage] = useState(0);
@@ -63,6 +65,10 @@ export default function ProductCard({
   );
 
   const handleAddToCart = () => {
+    if (!isAuthenticated) {
+      router.push(`/login?callbackUrl=${encodeURIComponent('/panier')}`);
+      return;
+    }
     if (!isOutOfStock) {
       addToCart(product);
     }
