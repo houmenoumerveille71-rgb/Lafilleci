@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
 import { useSession, signOut } from 'next-auth/react';
+import FrancineTechLogo from '@/components/FrancineTechLogo';
 
 const NAV_LINKS = [
   { href: '/', label: 'Accueil' },
@@ -70,16 +71,9 @@ export default function Header() {
       <header className="sticky top-0 z-50 w-full overflow-x-clip bg-black/95 backdrop-blur-sm border-b border-amber-900/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-2 sm:gap-4">
           
-          {/* Logo texte : La Fille-Ci by cino */}
-          <div className="shrink-0 min-w-0 py-3">
-            <Link href="/" className="inline-flex items-baseline gap-2 group">
-              <span className="text-base sm:text-lg md:text-xl font-serif tracking-[0.2em] uppercase text-stone-100 group-hover:text-amber-300 transition duration-300">
-                La Fille-Ci
-              </span>
-              <span className="text-[10px] sm:text-xs tracking-[0.3em] lowercase text-amber-500/90 font-light italic">
-                by cino
-              </span>
-            </Link>
+          {/* Logo FRANÇINE TECH */}
+          <div className="shrink-0 py-1.5 sm:py-2">
+            <FrancineTechLogo />
           </div>
 
           {/* Navigation principale - visible a partir de 1280px */}
