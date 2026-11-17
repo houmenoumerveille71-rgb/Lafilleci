@@ -6,7 +6,9 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
 
-export default function FedapayReturnPage() {
+import { Suspense } from 'react';
+
+function ReturnContent() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get('orderId');
   const [status, setStatus] = useState<string>('pending');
@@ -52,5 +54,13 @@ export default function FedapayReturnPage() {
       </section>
       <Footer />
     </div>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-black text-amber-50 flex items-center justify-center">Chargement...</div>}>
+      <ReturnContent />
+    </Suspense>
   );
 }
