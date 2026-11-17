@@ -136,13 +136,10 @@ export default function CheckoutPage() {
     setIsLoading(true);
 
     try {
-      const res = await fetch('/api/checkout', {
+      const res = await fetch('/api/checkout/fedapay', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          // On n'envoie QUE l'identifiant et la quantite : le prix et le nom
-          // sont relus en base par le serveur, qui est seul a faire foi.
-          // Envoyer un prix ici serait futile et potentiellement trompeur.
           items: items.map((item) => ({
             productId: item.id,
             quantity: item.quantity,
@@ -157,8 +154,9 @@ export default function CheckoutPage() {
         throw new Error(data.error || 'Erreur lors de la création du paiement');
       }
 
-      setClientSecret(data.sessionId);
-      setStep(2);
+      if (data.url) {
+        window.location.href = data.url;
+      }
     } catch (error) {
       console.error('Checkout error:', error);
     } finally {
