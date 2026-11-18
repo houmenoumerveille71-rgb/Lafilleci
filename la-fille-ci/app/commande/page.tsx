@@ -15,7 +15,18 @@ import Footer from '@/components/Footer';
 import { useCart } from '@/context/CartContext';
 import { useToast } from '@/context/ToastContext';
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '');
+const COUNTRIES = [
+  { name: 'Bénin', dial: '+229' },
+  { name: 'France', dial: '+33' },
+  { name: 'Belgique', dial: '+32' },
+  { name: 'Suisse', dial: '+41' },
+  { name: 'Canada', dial: '+1' },
+  { name: 'Côte d\'Ivoire', dial: '+225' },
+  { name: 'Sénégal', dial: '+221' },
+  { name: 'Togo', dial: '+228' },
+  { name: 'Gabon', dial: '+241' },
+  { name: 'Cameroun', dial: '+237' },
+];
 
 interface CheckoutFormProps {
   clientSecret: string;
@@ -128,6 +139,16 @@ export default function CheckoutPage() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
+    if (name === 'country') {
+      const country = COUNTRIES.find((c) => c.name === value);
+      const dial = country?.dial || '';
+      setFormData((prev) => ({
+        ...prev,
+        country: value,
+        phone: dial ? `${dial} ` : prev.phone,
+      }));
+      return;
+    }
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -287,18 +308,16 @@ export default function CheckoutPage() {
                          onChange={handleInputChange}
                          className="w-full bg-black border border-amber-900/40 text-xs px-4 py-3 text-stone-200 focus:outline-none focus:border-amber-500"
                        />
-                      <select
-                        name="country"
-                        value={formData.country}
-                        onChange={handleInputChange}
-                        className="w-full bg-black border border-amber-900/40 text-xs px-4 py-3 text-stone-200 focus:outline-none focus:border-amber-500"
-                      >
-                        <option value="France">France</option>
-                        <option value="Belgique">Belgique</option>
-                        <option value="Suisse">Suisse</option>
-                        <option value="Canada">Canada</option>
-                        <option value="Luxembourg">Luxembourg</option>
-                      </select>
+                        <select
+                          name="country"
+                          value={formData.country}
+                          onChange={handleInputChange}
+                          className="w-full bg-black border border-amber-900/40 text-xs px-4 py-3 text-stone-200 focus:outline-none focus:border-amber-500"
+                        >
+                          {COUNTRIES.map((c) => (
+                            <option key={c.name} value={c.name}>{c.name} ({c.dial})</option>
+                          ))}
+                        </select>
                     </div>
                   </div>
                 </div>
