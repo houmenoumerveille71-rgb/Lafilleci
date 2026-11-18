@@ -15,6 +15,8 @@ import Footer from '@/components/Footer';
 import { useCart } from '@/context/CartContext';
 import { useToast } from '@/context/ToastContext';
 
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '');
+
 const COUNTRIES = [
   { name: 'Bénin', dial: '+229' },
   { name: 'France', dial: '+33' },
