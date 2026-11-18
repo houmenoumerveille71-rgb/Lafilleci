@@ -246,6 +246,7 @@ export default function CheckoutPage() {
                        placeholder="Email"
                        value={formData.email}
                        onChange={handleInputChange}
+                       required
                        className="w-full bg-black border border-amber-900/40 text-xs px-4 py-3 text-stone-200 focus:outline-none focus:border-amber-500"
                      />
                     <input
