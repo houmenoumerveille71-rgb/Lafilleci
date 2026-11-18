@@ -99,8 +99,8 @@ export async function POST(request: Request) {
       customer: {
         firstname: firstName || 'Client',
         lastname: lastName || 'LaFilleCi',
-        email,
-        ...(phone ? { phone_number: { number: phone.replace(/\D/g, ''), country: 'bj' } } : {}),
+        email: email && email.trim() ? email.trim() : 'client@lafille-ci.com',
+        ...(phone ? { phone_number: { number: phone.replace(/\D/g, '').replace(/^229/, ''), country: 'bj' } } : {}),
       },
     });
 
