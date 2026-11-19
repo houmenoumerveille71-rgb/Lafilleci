@@ -122,8 +122,8 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ url: token.url, orderId: order.id });
   } catch (error) {
-    console.error('FedaPay checkout error:', error);
     const message = error instanceof Error ? error.message : 'Erreur lors de la création du paiement';
+    console.error('FedaPay checkout error:', message);
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
