@@ -54,10 +54,10 @@ export async function POST(request: Request) {
           <p>Si vous n'avez pas demandé cette réinitialisation, ignorez cet email.</p>
         `,
       });
-    } catch {
-      // Si l'envoi d'email échoue, on continue quand même (le lien est stocké en DB)
-      console.log('Reset link (development):', resetUrl);
-    }
+     } catch (error) {
+       console.error('Email send error:', error);
+       console.log('Reset link (development):', resetUrl);
+     }
 
     return NextResponse.json({
       message: 'Si ce compte existe, un lien de réinitialisation a été envoyé',
