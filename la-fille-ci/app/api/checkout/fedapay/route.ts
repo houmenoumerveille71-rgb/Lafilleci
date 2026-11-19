@@ -100,7 +100,6 @@ export async function POST(request: Request) {
         firstname: firstName || 'Client',
         lastname: lastName || 'LaFilleCi',
         email: email && email.trim() ? email.trim() : 'client@lafille-ci.com',
-        ...(phone ? { phone_number: { number: phone.replace(/\D/g, ''), country: 'bj' } } : {}),
       },
     });
 
