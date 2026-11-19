@@ -65,6 +65,16 @@ export async function POST(request: Request) {
     const session = await getServerSession(authOptions as any);
     const userId = (session as any)?.user?.id ? Number((session as any).user.id) : null;
 
+    let userEmail = email;
+    if (userId) {
+      const dbUser = await prisma.user.findUnique({ where: { id: userId }, select: { email: true } });
+      if (dbUser?.email) userEmail = dbUser.email;
+    }
+
+    if (!userEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userEmail)) {
+      return NextResponse.json({ error: 'Adresse e-mail invalide ou manquante' }, { status: 400 });
+    }
+
     const order = await prisma.order.create({
       data: {
         userId,
@@ -99,7 +109,7 @@ export async function POST(request: Request) {
       customer: {
         firstname: firstName || 'Client',
         lastname: lastName || 'LaFilleCi',
-        email: email && email.trim() ? email.trim() : 'client@lafille-ci.com',
+        email: userEmail,
       },
     });
 
