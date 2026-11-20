@@ -38,23 +38,40 @@ export async function POST(request: Request) {
     const resetUrl = `${baseUrl}/nouveau-mot-de-passe?token=${resetToken}`;
 
     try {
-      console.log('SMTP send start');
-      const { transporter } = await import('@/lib/email');
-      await transporter.sendMail({
-        from: process.env.EMAIL_FROM || 'noreply@lafille-ci.com',
-        to: email,
-        subject: 'Réinitialisation de votre mot de passe - La Fille-Ci',
-        html: `
-          <h2>Réinitialisation de mot de passe</h2>
-          <p>Bonjour ${user.firstName || ''},</p>
-          <p>Vous avez demandé la réinitialisation de votre mot de passe sur La Fille-Ci.</p>
-          <p>Cliquez sur le lien ci-dessous pour créer un nouveau mot de passe :</p>
-          <a href="${resetUrl}" style="background:#d97706;color:#fff;padding:12px 24px;text-decoration:none;border-radius:4px;">Réinitialiser mon mot de passe</a>
-          <p>Ce lien expire dans 1 heure.</p>
-          <p>Si vous n'avez pas demandé cette réinitialisation, ignorez cet email.</p>
-        `,
-      });
-      console.log('SMTP send success', Date.now() - start);
+      console.log('Email send start');
+      const resendKey = process.env.RESEND_API_KEY;
+      if (resendKey) {
+        await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${resendKey}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            from: process.env.EMAIL_FROM || 'noreply@lafille-ci.com',
+            to: email,
+            subject: 'Réinitialisation de votre mot de passe - La Fille-Ci',
+            html: `<h2>Réinitialisation de mot de passe</h2><p>Bonjour ${user.firstName || ''},</p><p>Vous avez demandé la réinitialisation de votre mot de passe sur La Fille-Ci.</p><p>Cliquez sur le lien ci-dessous pour créer un nouveau mot de passe :</p><a href="${resetUrl}" style="background:#d97706;color:#fff;padding:12px 24px;text-decoration:none;border-radius:4px;">Réinitialiser mon mot de passe</a><p>Ce lien expire dans 1 heure.</p><p>Si vous n'avez pas demandé cette réinitialisation, ignorez cet email.</p>`,
+          }),
+        });
+      } else {
+        const { transporter } = await import('@/lib/email');
+        await transporter.sendMail({
+          from: process.env.EMAIL_FROM || 'noreply@lafille-ci.com',
+          to: email,
+          subject: 'Réinitialisation de votre mot de passe - La Fille-Ci',
+          html: `
+            <h2>Réinitialisation de mot de passe</h2>
+            <p>Bonjour ${user.firstName || ''},</p>
+            <p>Vous avez demandé la réinitialisation de votre mot de passe sur La Fille-Ci.</p>
+            <p>Cliquez sur le lien ci-dessous pour créer un nouveau mot de passe :</p>
+            <a href="${resetUrl}" style="background:#d97706;color:#fff;padding:12px 24px;text-decoration:none;border-radius:4px;">Réinitialiser mon mot de passe</a>
+            <p>Ce lien expire dans 1 heure.</p>
+            <p>Si vous n'avez pas demandé cette réinitialisation, ignorez cet email.</p>
+          `,
+        });
+      }
+      console.log('Email send success', Date.now() - start);
     } catch (error) {
       console.error('Email send error:', error);
     }
