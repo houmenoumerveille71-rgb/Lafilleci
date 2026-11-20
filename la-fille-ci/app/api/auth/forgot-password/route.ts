@@ -3,6 +3,9 @@ import prisma from '@/lib/prisma';
 import crypto from 'crypto';
 
 export async function POST(request: Request) {
+  const start = Date.now();
+  console.log('Forgot password request start');
+
   try {
     const { email } = await request.json();
 
@@ -15,15 +18,13 @@ export async function POST(request: Request) {
     });
 
     if (!user) {
-      // Ne pas révéler si l'email existe ou pas (sécurité)
       return NextResponse.json({
         message: 'Si ce compte existe, un lien de réinitialisation a été envoyé',
       });
     }
 
-    // Générer un token de réinitialisation
     const resetToken = crypto.randomBytes(32).toString('hex');
-    const resetTokenExpires = new Date(Date.now() + 3600000); // 1 heure
+    const resetTokenExpires = new Date(Date.now() + 3600000);
 
     await prisma.user.update({
       where: { email },
@@ -33,24 +34,13 @@ export async function POST(request: Request) {
       },
     });
 
-    // Construire le lien de réinitialisation
     const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
     const resetUrl = `${baseUrl}/nouveau-mot-de-passe?token=${resetToken}`;
 
-  const start = Date.now();
-  console.log('Forgot password request start');
-
-  // ... existing code ...
-
-  try {
-    console.log('SMTP send start');
-    const { transporter } = await import('@/lib/email');
-    await transporter.sendMail({...});
-    console.log('SMTP send success', Date.now() - start);
-  } catch (error) {
-    console.error('Email send error:', error);
-    console.log('Reset link (development):', resetUrl);
-  }
+    try {
+      console.log('SMTP send start');
+      const { transporter } = await import('@/lib/email');
+      await transporter.sendMail({
         from: process.env.EMAIL_FROM || 'noreply@lafille-ci.com',
         to: email,
         subject: 'Réinitialisation de votre mot de passe - La Fille-Ci',
@@ -64,10 +54,10 @@ export async function POST(request: Request) {
           <p>Si vous n'avez pas demandé cette réinitialisation, ignorez cet email.</p>
         `,
       });
-     } catch (error) {
-       console.error('Email send error:', error);
-       console.log('Reset link (development):', resetUrl);
-     }
+      console.log('SMTP send success', Date.now() - start);
+    } catch (error) {
+      console.error('Email send error:', error);
+    }
 
     return NextResponse.json({
       message: 'Si ce compte existe, un lien de réinitialisation a été envoyé',
