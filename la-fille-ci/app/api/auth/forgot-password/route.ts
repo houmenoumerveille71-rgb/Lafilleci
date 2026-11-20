@@ -37,10 +37,20 @@ export async function POST(request: Request) {
     const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
     const resetUrl = `${baseUrl}/nouveau-mot-de-passe?token=${resetToken}`;
 
-    // Tenter d'envoyer un email si configuré
-    try {
-      const { transporter } = await import('@/lib/email');
-      await transporter.sendMail({
+  const start = Date.now();
+  console.log('Forgot password request start');
+
+  // ... existing code ...
+
+  try {
+    console.log('SMTP send start');
+    const { transporter } = await import('@/lib/email');
+    await transporter.sendMail({...});
+    console.log('SMTP send success', Date.now() - start);
+  } catch (error) {
+    console.error('Email send error:', error);
+    console.log('Reset link (development):', resetUrl);
+  }
         from: process.env.EMAIL_FROM || 'noreply@lafille-ci.com',
         to: email,
         subject: 'Réinitialisation de votre mot de passe - La Fille-Ci',
