@@ -465,7 +465,7 @@ export default function AdminProduitsPage() {
               <tr key={product.id} className="hover:bg-stone-800/50">
                 <td className="px-6 py-4 text-amber-100">{product.name}</td>
                 <td className="px-6 py-4 text-stone-400">{product.category}</td>
-                <td className="px-6 py-4 text-amber-200">{product.price}</td>
+                 <td className="px-6 py-4 text-amber-200">{product.price} FCFA</td>
                 <td className="px-6 py-4 text-stone-300">{product.stock ?? 0}</td>
                  <td className="px-6 py-4 text-stone-300">
                    {product.image ? (

@@ -58,7 +58,7 @@ export default function WishlistPage() {
                   </button>
                 </div>
                 <h4 className="text-xs font-serif tracking-wider text-amber-100/90 mb-1">{item.name}</h4>
-                <p className="text-xs font-mono text-amber-400/80 mb-4">{item.price}</p>
+                <p className="text-xs font-mono text-amber-400/80 mb-4">{item.price} FCFA</p>
                 <button 
                   onClick={() => handleAddToCart(item)}
                   className="bg-stone-900 border border-amber-900/40 text-[10px] uppercase tracking-wider py-2 text-amber-200 hover:bg-amber-900/40 transition"

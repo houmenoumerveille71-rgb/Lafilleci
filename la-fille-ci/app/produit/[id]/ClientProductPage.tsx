@@ -181,7 +181,7 @@ export default function ClientProductPage({ id, product }: Props) {
               </div>
 
               <p className="text-2xl font-mono text-amber-400 mb-8">
-                {product.price}
+                 {product.price} FCFA
               </p>
 
               <div className="space-y-4 mb-8">
