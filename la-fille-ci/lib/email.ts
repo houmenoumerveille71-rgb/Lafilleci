@@ -13,4 +13,4 @@ export const transporter = nodemailer.createTransport({
   socketTimeout: 10000,
 });
 
-export const EMAIL_FROM = process.env.EMAIL_FROM || 'noreply@lafille-ci.com';
+export const EMAIL_FROM = process.env.EMAIL_FROM || 'contact@lafilleci.com';

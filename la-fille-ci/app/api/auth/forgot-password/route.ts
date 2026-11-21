@@ -48,7 +48,7 @@ export async function POST(request: Request) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            from: process.env.EMAIL_FROM || 'noreply@lafille-ci.com',
+            from: process.env.EMAIL_FROM || 'contact@lafilleci.com',
             to: email,
             subject: 'Réinitialisation de votre mot de passe - La Fille-Ci',
             html: `<h2>Réinitialisation de mot de passe</h2><p>Bonjour ${user.firstName || ''},</p><p>Vous avez demandé la réinitialisation de votre mot de passe sur La Fille-Ci.</p><p>Cliquez sur le lien ci-dessous pour créer un nouveau mot de passe :</p><a href="${resetUrl}" style="background:#d97706;color:#fff;padding:12px 24px;text-decoration:none;border-radius:4px;">Réinitialiser mon mot de passe</a><p>Ce lien expire dans 1 heure.</p><p>Si vous n'avez pas demandé cette réinitialisation, ignorez cet email.</p>`,
