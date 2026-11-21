@@ -164,7 +164,7 @@ export default function ProductCard({
           </h3>
 
           <p className="mb-3 text-lg font-bold text-amber-400 sm:text-xl">
-            {price}
+            {price} FCFA
           </p>
 
           <p
