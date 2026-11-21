@@ -5,24 +5,24 @@ export default function JournalPage() {
   const articles = [
     {
       id: 1,
-      title: "L&apos;Élégance Intemporelle",
-      excerpt: "Découvrez les secrets d&apos;un style qui traverse les époques avec grâce et sophistication.",
+      title: "L'ÉLÉGANCE AU QUOTIDIEN",
+      excerpt: "Découvrez nos inspirations mode et nos conseils pour créer des looks féminins, élégants et tendance, sans vous ruiner.",
       date: '15 Janvier 2026',
-      category: 'Style'
+      category: 'STYLE & INSPIRATION'
     },
     {
       id: 2,
-      title: "Artisanat et Savoir-Faire",
-      excerpt: "Plongée dans l&apos;atelier de nos artisans, où chaque pièce est créée avec passion.",
+      title: "LE CHARME DU FAIT MAIN",
+      excerpt: "Plongez dans l'univers du crochet et découvrez des créations uniques qui allient créativité, authenticité et féminité.",
       date: '10 Janvier 2026',
-      category: 'Artisanat'
+      category: 'ART & CRÉATION'
     },
     {
       id: 3,
-      title: "Tendances Luxe 2026",
-      excerpt: "Les incontournables de la saison pour une garde-robe raffinée et moderne.",
+      title: "LES INDISPENSABLES DE VOTRE DRESSING",
+      excerpt: "Explorez les tendances du moment, les pièces incontournables et les idées de looks pour affirmer votre personnalité.",
       date: '5 Janvier 2026',
-      category: 'Tendances'
+      category: 'TENDANCES & COLLECTIONS'
     }
   ];
 
