@@ -8,21 +8,24 @@ export default function JournalPage() {
       title: "L'ÉLÉGANCE AU QUOTIDIEN",
       excerpt: "Découvrez nos inspirations mode et nos conseils pour créer des looks féminins, élégants et tendance, sans vous ruiner.",
       date: '15 Janvier 2026',
-      category: 'STYLE & INSPIRATION'
+      category: 'STYLE & INSPIRATION',
+      image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800'
     },
     {
       id: 2,
       title: "LE CHARME DU FAIT MAIN",
       excerpt: "Plongez dans l'univers du crochet et découvrez des créations uniques qui allient créativité, authenticité et féminité.",
       date: '10 Janvier 2026',
-      category: 'ART & CRÉATION'
+      category: 'ART & CRÉATION',
+      image: 'https://images.unsplash.com/photo-1520975916090-3105956dac38?w=800'
     },
     {
       id: 3,
       title: "LES INDISPENSABLES DE VOTRE DRESSING",
       excerpt: "Explorez les tendances du moment, les pièces incontournables et les idées de looks pour affirmer votre personnalité.",
       date: '5 Janvier 2026',
-      category: 'TENDANCES & COLLECTIONS'
+      category: 'TENDANCES & COLLECTIONS',
+      image: 'https://images.unsplash.com/photo-1445205170230-053b83016050?w=800'
     }
   ];
 
@@ -45,7 +48,7 @@ export default function JournalPage() {
           {articles.map((article) => (
             <div key={article.id} className="group cursor-pointer">
               <div className="aspect-video bg-stone-900 border border-amber-900/20 mb-4 flex items-center justify-center text-stone-600 text-xs">
-                [ Image Article ]
+                <img src={article.image} alt={article.title} className="w-full h-full object-cover" />
               </div>
               <span className="text-[10px] tracking-[0.2em] uppercase text-amber-500/80">
                 {article.category}
