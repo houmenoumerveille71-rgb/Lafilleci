@@ -284,7 +284,7 @@ export default function ProductCard({
                 </h2>
 
                 <p className="mb-5 text-2xl font-bold text-amber-400 sm:text-3xl">
-                  {price}
+            {price} FCFA
                 </p>
 
                 {isAuthenticated && productImages.length > 0 && (
