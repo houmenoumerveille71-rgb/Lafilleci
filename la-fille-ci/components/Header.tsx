@@ -77,7 +77,7 @@ export default function Header() {
                 La Fille-Ci
               </span>
               <span className="text-[10px] sm:text-xs tracking-[0.3em] lowercase text-amber-500/90 font-light italic">
-                by cino
+                by françine_tech
               </span>
             </Link>
           </div>
