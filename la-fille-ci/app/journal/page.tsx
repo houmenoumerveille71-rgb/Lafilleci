@@ -17,7 +17,7 @@ export default function JournalPage() {
       excerpt: "Plongez dans l'univers du crochet et découvrez des créations uniques qui allient créativité, authenticité et féminité.",
       date: '10 Janvier 2026',
       category: 'ART & CRÉATION',
-      image: 'https://images.unsplash.com/photo-1520975916090-3105956dac38?w=800'
+      image: 'https://images.unsplash.com/photo-1594633312681-425c3e9c0e6b?w=800'
     },
     {
       id: 3,
