@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     });
 
     const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
-    const resetUrl = `${baseUrl}/nouveau-mot-de-passe?token=${resetToken}`;
+    const resetUrl = `${baseUrl}/nouveau-mot-de-passe/${resetToken}`;
 
     try {
       console.log('Email send start');
